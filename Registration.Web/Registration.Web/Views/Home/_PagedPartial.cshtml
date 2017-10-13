@@ -1,0 +1,143 @@
+﻿@model IPagedList<Registration.Service.Models.CustomerModel>
+@using Registration.Data.Enums;
+@using Registration.Data.Enums.Extension;
+<div>
+
+    <table class="table table-striped table-hover table-bordered">
+        <thead class="thead-inverse">
+            <tr>
+                <th width="8%">
+                    行業別
+                </th>
+                <th width="8%">
+                    區域
+                </th>
+                <th width="8%">
+                    客戶屬性
+                </th>
+                <th width="10%">
+                    客戶編號
+                </th>
+                <th width="14%">
+                    客戶名稱
+                </th>
+                <th width="9%">
+                    購買日期
+                </th>
+                <th width="9%">
+                    業務人員
+                </th>
+                <th width="">
+                    收款
+                </th>
+                <th width="10%">
+                    主版本
+                </th>
+                <th>
+                    軟體狀態
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                foreach (var order in item.Order)
+                {
+                    <tr>
+                        <td class="text-center">
+                            @item.Industry
+                        </td>
+                        <td class="text-center">
+                            @item.Area
+                        </td>
+                        <td class="text-center">
+                            @item.Attribute
+                        </td>
+                        <td class="text-center">
+                            @item.Number
+                        </td>
+                        <td class="text-center">
+                            <a class="AllInfo" href="#" data-toggle="modal" data-target="#AllModal" data-id="@item.Id">
+                                @item.Name
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            @if (order.PurchaseDate != null)
+                            {
+                                <span>
+                                    @order.PurchaseDate.Value.ToString("yyyy-MM-dd")
+                                </span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            @order.Salesperson
+                        </td>
+                        <td class="text-center">
+                            @if (order.IsReceipt)
+                            {
+                                <span style="color:#00AA00">✓</span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            @order.Version
+                        </td>
+                        <td class="text-center">
+                            @order.Status
+                        </td>
+                        <td align="center">
+                            <a asp-action="Display" asp-route-id="@item.Id" class="btn btn-primary btn-sm" data-toggle="tooltip" title="明細"><i class="fa fa-list-ul" aria-hidden="true"></i></a>
+                            @{
+                                var authority = ViewBag.Authority;
+                                if (authority == "系統管理員")
+                                {
+                                    <a asp-action="CreateModule" asp-controller="Customer" asp-route-id="@item.Id" class="btn btn-dark btn-sm" data-toggle="tooltip" title="新增模組"><i class="fa fa-cube" aria-hidden="true"></i></a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm" data-toggle="tooltip" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    @*<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" data-toggle="tooltip" title="刪除" onclick="return confirm('確定刪除此筆資料？');"><i class="fa fa-times" aria-hidden="true"></i></a>*@
+                                    <span data-toggle="tooltip" title="刪除">
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal" data-id=@item.Id>
+                                            <i class="fa fa-remove" aria-hidden="true"></i>
+                                        </button>
+                                    </span>
+                                }
+                            }
+                        </td>
+                    </tr>
+                                    }
+                                }
+        </tbody>
+    </table>
+</div>
+
+<pager source="@Model" setting-link-attr-data-ajax="true" setting-link-attr-data-ajax-method="GET" setting-link-attr-data-ajax-update="#PagedList" />
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">確認刪除此筆客戶資料</h4>
+            </div>
+            <div class="modal-footer">
+                <form asp-action="Delete" method="post" class="form-inline" role="form">
+                    <input type="hidden" id="hiddenInp" name="id">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-trash" aria-hidden="true"></i> 刪除
+                    </button>
+                    &nbsp;
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div id="AllModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>

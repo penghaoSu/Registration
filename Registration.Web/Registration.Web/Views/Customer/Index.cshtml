@@ -1,0 +1,50 @@
+﻿@model Registration.Service.Models.CustomerViewModel
+
+<div class="body-title">
+    客戶資料
+</div>
+<div class="body-content">
+    <div class="row">
+        <div class="col-md-5">
+            @{
+                var authority = ViewBag.Authority;
+                if (authority == "系統管理員")
+                {
+                    <form class="form-inline">
+                        <a asp-action="Create" class="mb-2 mr-sm-2 mb-sm-2 btn btn-primary">新客戶 <i class="fa fa-plus"></i></a>
+                    </form>
+                };
+            }
+        </div>
+        <div class="col-md-7">
+            <form asp-action="Index" method="get" class="form-inline float-right">
+                <select asp-for="SearchParams.Name" class="form-control mb-2 mr-sm-2 mb-sm-2">
+                    <option value="1">客戶編號</option>
+                    <option value="2">客戶名稱</option>
+                    <option value="3">區域</option>
+                </select>
+                <input type="text" asp-for="SearchParams.Keyword" class="form-control mb-2 mr-sm-2 mb-sm-2" placeholder="搜尋內容" />
+                <button type="submit" class="btn btn-primary mb-2 mr-sm-2 mb-sm-2">查詢 <i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+
+    @* 內容 *@
+    <div id="PagedList">
+        @await Html.PartialAsync("_PagedPartial", Model.Customer)
+    </div>
+
+</div>
+
+@section Scripts
+    {
+    <script>
+        $(function () {
+            $('#myModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var clickedButtonId = button.data('id');
+                $("#hiddenInp").val(clickedButtonId);
+            });
+        });
+    </script>
+}

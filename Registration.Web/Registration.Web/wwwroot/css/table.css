@@ -1,0 +1,53 @@
+﻿/* 表格 */
+table {
+    width: 100%;
+    border-color: #000000 !important;
+}
+/* 表格標題樣式 */
+.tb-title {
+    height: 30px;
+    line-height: 30px;
+    margin: 0px auto;
+    padding-left: 10px;
+    background: linear-gradient(gray, black);
+    color: #ffffff;
+}
+
+    .tb-title a {
+        padding: 3px;
+        background-color: #ffffff;
+        border-radius: 4px;
+        color: #000000 !important;
+    }
+
+        .tb-title a:hover,
+        .tb-title a:focus {
+            cursor: pointer;
+            color: #000000;
+            text-decoration: none;
+            background: linear-gradient(#FCFCFC, #D1D1D1);
+        }
+/* 表格標題文字區塊 */
+.tb-title-text {
+    float: left;
+}
+/* 表格標題功能按鈕區塊 */
+.tb-title-btn {
+    float: right;
+    padding-right: 20px;
+}
+
+.tb-left-title-btn {
+    float: left;
+    padding-left: 20px;
+}
+/* 表格header樣式 */
+#Table tr th {
+    background: #e9e9e9 none repeat scroll 0% 0%;
+    text-align: center;
+    line-height: 30px;
+}
+/* 表格滑鼠上移變色 */
+#Table tr:hover {
+    background-color: #FFFFDD;
+}

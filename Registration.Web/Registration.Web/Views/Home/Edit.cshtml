@@ -1,0 +1,272 @@
+﻿@*@model Registration.Service.Models.CustomerDto
+
+<div class="body-title">
+    新增
+</div>
+
+<div class="body-content">
+    <form asp-action="Edit">
+        <div class="form-horizontal">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div>
+                <div class="row">
+                    <div class="col-1 text-primary">
+                        <h5>客戶資料</h5>
+                    </div>
+                    <div class="col-11">
+                        <hr />
+                    </div>
+                </div>
+            </div>
+            <div style="padding-left:100px;">
+                <div class="form-group row">
+                    <div class="col-md-1 text-right">
+                        <label asp-for="Industry" class="col-form-label">行業別</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input asp-for="Industry" class="form-control" />
+                        <span asp-validation-for="Industry" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-1 text-right">
+                        <label asp-for="Area" class="col-form-label">區域</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input asp-for="Area" class="form-control" />
+                        <span asp-validation-for="Area" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-1 text-right">
+                        <label asp-for="Contact" class="col-form-label">聯絡人</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input asp-for="Contact" class="form-control" />
+                        <span asp-validation-for="Contact" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-1 text-right">
+                        <label asp-for="Attribute" class="col-form-label">客戶屬性</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input asp-for="Attribute" class="form-control" />
+                        <span asp-validation-for="Attribute" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-1 text-right">
+                        <label asp-for="Number" class="col-form-label">客戶編號</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input asp-for="Number" class="form-control" />
+                        <span asp-validation-for="Number" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-1 text-right">
+                        <label asp-for="Name" class="col-form-label">客戶名稱</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-1 text-right">
+                        <label asp-for="Phone" class="col-form-label">電話</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-1 text-right">
+                        <label asp-for="Address" class="col-form-label">地址</label>
+                    </div>
+                    <div class="col-md-7">
+                        <input asp-for="Address" class="form-control" maxlength="30" placeholder="限制30個字" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="row">
+                    <div class="col-1 text-primary">
+                        <h5>其他資料</h5>
+                    </div>
+                    <div class="col-11">
+                        <hr />
+                    </div>
+                </div>
+            </div>
+            <div style="padding-left:100px;">
+                <div class="form-group row">
+                    <div class="col-md-1 text-right">
+                        <label asp-for="PurchaseDate" class="col-form-label">購買日期</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input asp-for="PurchaseDate" class="form-control" type="date" />
+                        <span asp-validation-for="PurchaseDate" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-1 text-right">
+                        <label asp-for="Salesperson" class="col-form-label">業務人員</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input asp-for="Salesperson" class="form-control" />
+                        <span asp-validation-for="Salesperson" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-1 text-right">
+                        <label asp-for="Deliveryperson" class="col-form-label">交機人員</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input asp-for="Deliveryperson" class="form-control" />
+                        <span asp-validation-for="Deliveryperson" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-1 text-right">
+                        <label asp-for="IsReceipt" class="col-form-label">是否已收款</label>
+                    </div>
+                    <div class="col-md-3" style="padding-top:7px;">
+                        <label class="custom-control custom-checkbox">
+                            <input asp-for="IsReceipt" type="checkbox" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="row">
+                    <div class="col-1 text-primary">
+                        <h5>授權資料</h5>
+                    </div>
+                    <div class="col-11">
+                        <hr />
+                    </div>
+                </div>
+            </div>
+            <div style="padding-left:100px;">
+                <div class="form-group row">
+                    <div class="col-md-1 text-right">
+                        <label asp-for="AuthorizeType" class="col-form-label">授權種類</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select asp-for="AuthorizeType" class="form-control mb-2 mr-sm-2 mb-sm-2">
+                            <option value="1">租用</option>
+                            <option value="2">買斷</option>
+                            <option value="3">試用</option>
+                        </select>
+                        <span asp-validation-for="AuthorizeType" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-1 text-right">
+                        <label asp-for="Version" class="col-form-label">主版本</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input asp-for="Version" class="form-control" />
+                        <span asp-validation-for="Version" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-1 text-right">
+                        <label asp-for="Revision" class="col-form-label">版次</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input asp-for="Revision" class="form-control" />
+                        <span asp-validation-for="Revision" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-1 text-right">
+                        <label asp-for="Warranty" class="col-form-label">保固年份</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input asp-for="Warranty" class="form-control" />
+                        <span asp-validation-for="Warranty" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-1 text-right">
+                        <label asp-for="WarrantyPeriodStr" class="col-form-label">保固期限</label>
+                    </div>
+                    <div class="col-md-2">
+                        <input asp-for="WarrantyPeriodStr" class="form-control" type="date" />
+                        <span asp-validation-for="WarrantyPeriodStr" class="text-danger"></span>
+                    </div>
+                    <div class="">~</div>
+                    <div class="col-md-2">
+                        <input asp-for="WarrantyPeriodEnd" class="form-control" type="date" />
+                        <span asp-validation-for="WarrantyPeriodEnd" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-1 text-right">
+                        <label asp-for="Lease" class="col-form-label">租用期數</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input asp-for="Lease" class="form-control" />
+                        <span asp-validation-for="Lease" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-1 text-right">
+                        <label asp-for="LeaseDateStr" class="col-form-label">租用期限</label>
+                    </div>
+                    <div class="col-md-2">
+                        <input asp-for="LeaseDateStr" class="form-control" type="date" />
+                        <span asp-validation-for="LeaseDateStr" class="text-danger"></span>
+                    </div>
+                    <div class="">~</div>
+                    <div class="col-md-2">
+                        <input asp-for="LeaseDateEnd" class="form-control" type="date" />
+                        <span asp-validation-for="LeaseDateEnd" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-1 text-right">
+                        <label asp-for="Module" class="col-form-label">擴充模組</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select asp-for="Module" class="form-control mb-2 mr-sm-2 mb-sm-2">
+                            <option value="1">庫存</option>
+                            <option value="2">配方</option>
+                            <option value="3">促銷</option>
+                            <option value="4">APP</option>
+                        </select>
+                        <span asp-validation-for="Module" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-1 text-right">
+                        <label asp-for="IsAutoUpdate" class="col-form-label">自動更版</label>
+                    </div>
+                    <div class="col-md-3" style="padding-top:7px;">
+                        <label class="custom-control custom-checkbox">
+                            <input asp-for="IsAutoUpdate" type="checkbox" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description"></span>
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div class="row justify-content-center">
+            <div class="col-4 text-center">
+                <button type="submit" value="Create" class="btn btn-primary" id="Send">儲存<i class="fa fa-check"></i></button>
+                <a asp-action="Index" class="btn btn-success">返回列表 <i class="fa fa-reply"></i></a>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}*@

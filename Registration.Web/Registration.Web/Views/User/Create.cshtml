@@ -1,0 +1,74 @@
+﻿@model Registration.Service.Models.UserDto
+
+<div class="container-fluid body-title">
+    <h1>新增使用者</h1>
+</div>
+
+<div class="container-fluid body-content">
+
+    <form asp-action="Create">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group row">
+            <div class="row offset-md-4 col-md-4">
+                <label asp-for="UserName" class="col-md-4 col-form-label symbol">帳號</label>
+                <div class="col-md-8">
+                    <input asp-for="UserName" class="form-control" data-val="true" data-val-required="帳號為必填!" data-val-regex="格式不正確!" data-val-regex-pattern="(^[A-Za-z0-9]+$)" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="row offset-md-4 col-md-4">
+                <label asp-for="Name" class="col-md-4 col-form-label symbol">姓名</label>
+                <div class="col-md-8">
+                    <input asp-for="Name" class="form-control" data-val-required="姓名為必填!" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="row offset-md-4 col-md-4">
+                <label asp-for="Password" class="col-md-4 col-form-label symbol">密碼</label>
+                <div class="col-md-8">
+                    <input asp-for="Password" class="form-control" data-val-required="密碼為必填!" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="row offset-md-4 col-md-4">
+                <label asp-for="ConfirmPassword" class="col-md-4 col-form-label symbol">確認密碼</label>
+                <div class="col-md-8">
+                    <input asp-for="ConfirmPassword" class="form-control" data-val-required="確認密碼為必填!" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="row offset-md-4 col-md-4">
+                <label asp-for="RoleId" class="col-md-4 col-form-label">角色</label>
+                <div class="col-md-8">
+                    <select class="form-control" asp-for="RoleId" asp-items="Model.Role">
+                        <option>= 請選擇 =</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+                
+        <div class="row">
+            <div class="col-md-4 offset-md-4 text-center">
+                @*<input type="submit" value="新增" class="btn btn-primary" />*@
+                <button type="submit" class="btn btn-primary">新增 <i class="fa fa-check"></i></button>
+                <a asp-action="Index" class="btn btn-success">返回列表 <i class="fa fa-reply"></i></a>
+            </div>
+        </div>
+
+    </form>
+
+</div>

@@ -1,0 +1,182 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    /*background: rgba(203, 203, 210, 0.15);*/
+    background-color: #F0F0F0;
+    font-family: Arial, "微軟正黑體";
+    text-shadow: 0 0 0.001em #707070;
+    font-weight: 600 !important;
+    height: -webkit-fill-available;
+}
+
+#wrapper {
+    min-height: 100%;
+    position: relative;
+}
+
+#header {
+    padding-top: 50px;
+}
+
+#content {
+    
+    padding-bottom: 25px; /* Height of the footer element */
+}
+
+#footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    background-color: #000000;
+    color: #ffffff;
+    height: 50px;
+    font-size: 16px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-title {
+    /*border: 2px solid #ccc;*/
+    /*background-color: #fff;*/
+    border-radius: 10px;
+    margin: 0% 5% 0% 5%;
+    padding: 10px;
+    font-size: 36px;
+}
+
+.body-content {
+    border: 2px solid #ddd;
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 0% 5% 1% 5%;
+    padding: 35px;
+}
+
+.nav-dropdown-link {
+    color: #000000;
+}
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+/*input,
+select,
+textarea {
+    max-width: 280px;
+}*/
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* buttons and links extension to use brackets: [ click me ] */
+.btn-bracketed::before {
+    display: inline-block;
+    content: "[";
+    padding-right: 0.5em;
+}
+
+.btn-bracketed::after {
+    display: inline-block;
+    content: "]";
+    padding-left: 0.5em;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+.table-hover tbody tr:hover {
+    background-color: #FFF8DC;
+}
+
+th {
+    text-align: center;
+}
+
+/* 字數超出範圍 */
+.overflow {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* 必填符號 */
+.symbol:before {
+    content: "✻";
+    color: #ff0000;
+}
+
+/* 下拉選單 */
+.dropdown-submenu {
+    position: relative;
+}
+
+    .dropdown-submenu > .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -6px;
+        margin-left: -1px;
+        -webkit-border-radius: 0 6px 6px 6px;
+        -moz-border-radius: 0 6px 6px 6px;
+        border-radius: 0 6px 6px 6px;
+    }
+
+    .dropdown-submenu:hover > .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-submenu > a:after {
+        display: block;
+        content: " ";
+        float: right;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+        border-width: 5px 0 5px 5px;
+        border-left-color: #cccccc;
+        margin-top: 5px;
+        margin-right: -10px;
+    }
+
+    .dropdown-submenu:hover > a:after {
+        border-left-color: #ffffff;
+    }
+
+    .dropdown-submenu.pull-left {
+        float: none;
+    }
+
+        .dropdown-submenu.pull-left > .dropdown-menu {
+            left: -100%;
+            margin-left: 10px;
+            -webkit-border-radius: 6px 0 6px 6px;
+            -moz-border-radius: 6px 0 6px 6px;
+            border-radius: 6px 0 6px 6px;
+        }
+
+@media (min-width: 1200px) {
+    .col-form-label {
+        text-align: right;
+    }
+}
+
+button {
+    cursor: pointer;
+}
+
+.col-md-1, col-md-3{
+    padding-left:10px !important;
+    padding-right:10px !important;
+}

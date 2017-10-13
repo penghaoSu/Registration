@@ -1,0 +1,25 @@
+﻿@model Registration.Service.Models.SerialNumber
+@{
+    string guid = Guid.NewGuid().ToString();
+}
+<div>
+    <table>
+        <tr>
+            <td>
+                <input class="form-control" asp-for="SN" name="sn[@guid].SN" />
+            </td>
+            <td>
+                @{
+                    if (Model.Flag.Value)
+                    {
+                        <a id="add-sn" href="javascript: void(0)"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
+                    }
+                    else
+                    {
+                        <a id="del-sn" href="#"><i class="fa fa-minus-circle fa-2x" aria-hidden="true"></i></a>
+                    }
+                }
+            </td>
+        </tr>
+    </table>
+</div>
