@@ -68,7 +68,7 @@ namespace Registration.Web.Controllers
 
                 await _customerService.CreateAsync(model);
 
-                return RedirectToAction(nameof(Index), nameof(HomeController));
+                return RedirectToAction(nameof(HomeController.Index));
             }
             catch (DbUpdateException)
             {
@@ -113,9 +113,9 @@ namespace Registration.Web.Controllers
 
                 await _customerService.CreateModuleAsync(model);
 
-                return RedirectToAction(nameof(Index), nameof(HomeController));
+                return RedirectToAction(nameof(HomeController.Index));
             }
-            catch (DbUpdateException ex)
+            catch (DbUpdateException)
             {
 
             }
@@ -143,7 +143,7 @@ namespace Registration.Web.Controllers
 
                 return PartialView("_AllOrder", model);
             }
-            catch(DbUpdateException ex)
+            catch(DbUpdateException)
             {
 
             }

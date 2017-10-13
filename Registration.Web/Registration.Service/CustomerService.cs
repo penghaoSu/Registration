@@ -14,7 +14,7 @@ namespace Registration.Service
 {
     public class CustomerService : ServiceBase, ICustomerService
     {
-        private int pageSize = 8;
+        private int pageSize = 5;
 
         public CustomerService(IMapper mapper, RegistrationContext context) : base(mapper, context)
         { }
@@ -89,11 +89,11 @@ namespace Registration.Service
                 // 新增產品金鑰
                 var productKey = new List<ProductKey>();
 
-                for (int i = 0; i < model.OrderDto.Number; i++)
+                foreach (var item in orders)
                 {
                     productKey.Add(new ProductKey()
                     {
-                        OrderId = model.CustomerNew.Id,
+                        OrderId = item.Id,
                         Key = Guid.NewGuid().ToString(),
                         Date = DateTime.Now
                     });
@@ -247,7 +247,7 @@ namespace Registration.Service
         }
         #endregion
 
-        #region 
+        #region 取得客戶所有訂單資料
         public async Task<Customer> GetAllOrderAsync(int cid)
         {
             //var data = await _context.Customer.Select(c => new CustomerModel
@@ -284,6 +284,17 @@ namespace Registration.Service
             var data = await _context.Customer
                 .Include(o => o.Order)
                 .ThenInclude(p => p.ProductKey).SingleOrDefaultAsync(o => o.Id == cid);
+
+            return data;
+        }
+        #endregion
+
+        #region 取得所有訂單資料並作匯出
+        public async Task<IEnumerable<Customer>> GetOrderExcelAsync()
+        {
+            var data = await _context.Customer
+                .Include(o => o.Order)
+                .ThenInclude(p => p.ProductKey).AsNoTracking().ToListAsync();
 
             return data;
         }

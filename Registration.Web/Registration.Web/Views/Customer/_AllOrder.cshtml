@@ -1,10 +1,16 @@
-﻿@model Registration.Service.Models.CustomerModel
+﻿@model Registration.Data.Customer
 
 @{
     Layout = null;
 }
 
-<div>
+<style>
+    table{
+
+    }
+</style>
+
+<div style="padding:15px 15px 15px 15px">
     <div class="modal-header">
         <h4 class="modal-title"></h4>
         <input type="hidden" id="hiddenInp" name="id">
@@ -14,100 +20,98 @@
     </div>
     @* content *@
     <div class="modal-body">
+
         <div class="row">
-
-            <div class="form-horizontal">
-                <div>
-                    <div class="row">
-                        <div class="col-1 text-primary">
-                            <h5>客戶資料</h5>
-                        </div>
-                        <div class="col-11">
-                            <hr />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-1 text-right">
-                        <label asp-for="Industry" class="col-form-label">行業別</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input asp-for="Industry" class="form-control" readonly />
-                    </div>
-
-                    <div class="col-md-1 text-right">
-                        <label asp-for="Area" class="col-form-label">區域</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input asp-for="Area" class="form-control" readonly />
-                    </div>
-
-                    <div class="col-md-1 text-right">
-
-                    </div>
-                    <div class="col-md-3">
-
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-md-1 text-right">
-                        <label asp-for="Attribute" class="col-form-label">客戶屬性</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input asp-for="Attribute" class="form-control" readonly />
-                    </div>
-
-                    <div class="col-md-1 text-right">
-                        <label asp-for="Number" class="col-form-label">客戶編號</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input asp-for="Number" class="form-control" readonly />
-                    </div>
-
-                    <div class="col-md-1 text-right">
-                        <label asp-for="Name" class="col-form-label">客戶名稱</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input asp-for="Name" class="form-control" readonly />
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-md-1 text-right">
-                        @*<label asp-for="Phone" class="col-form-label">電話</label>*@
-                    </div>
-                    <div class="col-md-3">
-                        @*<input asp-for="Phone" class="form-control" readonly />*@
-                    </div>
-
-                    <div class="col-md-1 text-right">
-                        @*<label asp-for="Address" class="col-form-label">地址</label>*@
-                    </div>
-                    <div class="col-md-7">
-                        @*<input asp-for="Address" class="form-control" readonly />*@
-                    </div>
-                </div>
+            <div class="col-2 text-primary text-right">
+                <h5>客戶資料</h5>
             </div>
-
-            <div>
-                <div class="row">
-                    <div class="col-1 text-primary">
-                        <h5>其他資料</h5>
-                    </div>
-                    <div class="col-11">
-                        <hr />
-                    </div>
-                </div>
-            </div>
-            <div style="padding-left:100px;">
-
-            </div>
-
-            <div class="form-group row">
-
+            <div class="col-10">
+                <hr />
             </div>
         </div>
+
+        <div>
+            <table>
+                <tr>
+                    <td style="width:13%" class="text-right">行業別：</td>
+                    <td style="width:20%">@Model.Industry</td>
+                    <td style="width:13%" class="text-right">區域：</td>
+                    <td style="width:20%">@Model.Area</td>
+                    <td style="width:13%" class="text-right">聯絡人：</td>
+                    <td style="width:21%">@Model.Contact</td>
+                </tr>
+                <tr>
+                    <td class="text-right">客戶屬性：</td>
+                    <td>@Model.Attribute</td>
+                    <td class="text-right">客戶編號：</td>
+                    <td>@Model.Number</td>
+                    <td class="text-right">客戶名稱：</td>
+                    <td>@Model.Name</td>
+                </tr> 
+                <tr>
+                    <td class="text-right">電話：</td>
+                    <td>@Model.Phone</td>
+                    <td class="text-right">住址：</td>
+                    <td colspan="4">@Model.Address</td>
+                </tr>
+            </table>
+        </div>
+
+        @* 產品授權資料 *@
+        <div>
+            <table class="table table-striped table-hover table-bordered">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th width="15%">
+                            類別
+                        </th>
+                        <th width="15%">
+                            模組
+                        </th>
+                        <th width="25%">
+                            軟體序號
+                        </th>
+                        <th width="">
+                            授權碼
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var item in Model.Order)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    @if(item.OrderType==1)
+                                    {
+                                        <span>主系統</span>
+                                    }
+                                    else
+                                    {
+                                        <span>模組</span>
+                                    }
+                                </td>
+                                <td class="text-center"></td>
+                                <td class="text-center">
+                                    @item.SerialNumber
+                                </td>
+                                <td class="text-center">
+                                    @{
+                                        foreach (var pk in item.ProductKey)
+                                        {
+                                            @pk.Key
+                                            <br />
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+        </div>
+
     </div>
     @* footer *@
     <div class="modal-footer text-center">

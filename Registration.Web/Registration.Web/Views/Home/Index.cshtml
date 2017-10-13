@@ -25,7 +25,9 @@
                 </select>
                 <input type="text" asp-for="SearchParams.Keyword" class="form-control mb-2 mr-sm-2 mb-sm-2" placeholder="搜尋內容" />
                 <button type="submit" class="btn btn-primary mb-2 mr-sm-2 mb-sm-2">查詢 <i class="fa fa-search"></i></button>
+                <a asp-action="Export" asp-controller="Excel" class="btn btn-primary">匯出</a>
             </form>
+            
         </div>
     </div>
 

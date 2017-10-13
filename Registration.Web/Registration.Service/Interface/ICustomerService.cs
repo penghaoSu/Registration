@@ -71,6 +71,12 @@ namespace Registration.Service.Interface
         Task<Customer> GetAllOrderAsync(int cid);
 
         /// <summary>
+        /// 取得所有訂單資料並作匯出
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<Customer>> GetOrderExcelAsync();
+
+        /// <summary>
         /// 取得縣市
         /// </summary>
         /// <returns></returns>
