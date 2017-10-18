@@ -28,7 +28,8 @@ namespace Registration.Data
         public bool TwoFactorEnabled { get; set; }
         public string UserName { get; set; }
         public string Name { get; set; }
-        public bool? IsDelete { get; set; }
+        public bool IsLock { get; set; }
+        public bool IsDelete { get; set; }
 
         public ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }

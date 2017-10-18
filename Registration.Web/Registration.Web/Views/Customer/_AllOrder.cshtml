@@ -26,7 +26,7 @@
                 <h5>客戶資料</h5>
             </div>
             <div class="col-10">
-                <hr />
+                
             </div>
         </div>
 
@@ -34,15 +34,30 @@
             <table>
                 <tr>
                     <td style="width:13%" class="text-right">行業別：</td>
-                    <td style="width:20%">@Model.Industry</td>
+                    <td style="width:20%">
+                    @{
+                        var industry = (IndustryEnum)Enum.Parse(typeof(IndustryEnum), Model.Industry.ToString());
+                        <span>@industry.Description()</span>
+                    }
+                    </td>
                     <td style="width:13%" class="text-right">區域：</td>
-                    <td style="width:20%">@Model.Area</td>
+                    <td style="width:20%">
+                    @{
+                        var area = (AreaEnum)Enum.Parse(typeof(AreaEnum), Model.Area.ToString());
+                        <span>@area.Description()</span>
+                    }
+                    </td>
                     <td style="width:13%" class="text-right">聯絡人：</td>
                     <td style="width:21%">@Model.Contact</td>
                 </tr>
                 <tr>
                     <td class="text-right">客戶屬性：</td>
-                    <td>@Model.Attribute</td>
+                    <td>
+                    @{
+                        var attribu = (AttributeEnum)Enum.Parse(typeof(AttributeEnum), Model.Attribute.ToString());
+                        <span>@attribu.Description()</span>
+                    }
+                    </td>
                     <td class="text-right">客戶編號：</td>
                     <td>@Model.Number</td>
                     <td class="text-right">客戶名稱：</td>
@@ -56,8 +71,16 @@
                 </tr>
             </table>
         </div>
-
+        <p></p>
         @* 產品授權資料 *@
+        <div class="row">
+            <div class="col-2 text-primary text-right">
+                <h5>授權資料</h5>
+            </div>
+            <div class="col-10">
+
+            </div>
+        </div>
         <div>
             <table class="table table-striped table-hover table-bordered">
                 <thead class="thead-inverse">
@@ -91,7 +114,12 @@
                                         <span>模組</span>
                                     }
                                 </td>
-                                <td class="text-center"></td>
+                                <td class="text-center">
+                                    @{
+                                        var module = (ModuleEnum)Enum.Parse(typeof(ModuleEnum), item.Module.ToString());
+                                        <span>@module.Description()</span>
+                                    }
+                                </td>
                                 <td class="text-center">
                                     @item.SerialNumber
                                 </td>

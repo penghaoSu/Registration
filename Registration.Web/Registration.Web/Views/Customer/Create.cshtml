@@ -148,7 +148,18 @@
                         <label asp-for="OrderDto.Salesperson" class="col-form-label">業務人員</label>
                     </div>
                     <div class="col-md-3">
-                        <input asp-for="OrderDto.Salesperson" class="form-control" />
+                        <table>
+                            <tr>
+                                <td>
+                                    <input asp-for="OrderDto.Salesperson" class="form-control" readonly />
+                                </td>
+                                <td>
+                                    <a class="AllUser" href="#" data-toggle="modal" data-target="#UserModal" data-id="1">
+                                        <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
                         <span asp-validation-for="OrderDto.Salesperson" class="text-danger"></span>
                     </div>
 
@@ -156,7 +167,18 @@
                         <label asp-for="OrderDto.Deliveryperson" class="col-form-label">交機人員</label>
                     </div>
                     <div class="col-md-3">
-                        <input asp-for="OrderDto.Deliveryperson" class="form-control" />
+                        <table>
+                            <tr>
+                                <td>
+                                    <input asp-for="OrderDto.Deliveryperson" class="form-control" readonly />
+                                </td>
+                                <td>
+                                    <a class="AllUser" href="#" data-toggle="modal" data-target="#UserModal" data-id="2">
+                                        <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
                         <span asp-validation-for="OrderDto.Deliveryperson" class="text-danger"></span>
                     </div>
                 </div>
@@ -190,7 +212,7 @@
                         <label asp-for="OrderDto.Number" class="col-form-label">數量</label>
                     </div>
                     <div class="col-md-3">
-                        <input asp-for="OrderDto.Number" class="form-control" min="0" />
+                        <input asp-for="OrderDto.Number" class="form-control" min="0" value="0" />
                         <span asp-validation-for="OrderDto.Number" class="text-danger"></span>
                     </div>
 
@@ -216,7 +238,7 @@
                         <label asp-for="OrderDto.Warranty" class="col-form-label">保固年份</label>
                     </div>
                     <div class="col-md-3">
-                        <input asp-for="OrderDto.Warranty" class="form-control" type="number" min="0" />
+                        <input asp-for="OrderDto.Warranty" class="form-control" type="number" min="0" value="0" />
                         <span asp-validation-for="OrderDto.Warranty" class="text-danger"></span>
                     </div>
 
@@ -239,7 +261,7 @@
                         <label asp-for="OrderDto.Lease" class="col-form-label">租用期數</label>
                     </div>
                     <div class="col-md-3">
-                        <input asp-for="OrderDto.Lease" class="form-control" type="number" min="0" />
+                        <input asp-for="OrderDto.Lease" class="form-control" type="number" min="0" value="0" />
                         <span asp-validation-for="OrderDto.Lease" class="text-danger"></span>
                     </div>
 
@@ -262,7 +284,7 @@
                         <label asp-for="OrderDto.SerialNumber" class="col-form-label">軟體序號</label>
                     </div>
                     <div class="col-md-3">
-                        @await Html.PartialAsync("_SerialNumber" , new Registration.Service.Models.SerialNumber() { Flag = true })
+                        @await Html.PartialAsync("_SerialNumber", new Registration.Service.Models.SerialNumber() { Flag = true })
                         <div id="mySN">
 
                         </div>
@@ -288,18 +310,26 @@
         <div class="row justify-content-center">
             <div class="col-4 text-center">
                 <button type="submit" value="Create" class="btn btn-primary" id="Send">新增<i class="fa fa-check"></i></button>
-                <a asp-action="Index" class="btn btn-success">返回列表 <i class="fa fa-reply"></i></a>
+                <a asp-action="Index" asp-controller="Home" class="btn btn-success">返回列表 <i class="fa fa-reply"></i></a>
             </div>
         </div>
     </form>
 </div>
 
 
+<div id="UserModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script type="text/javascript" language="javascript">
-
+        // 地址連動
     $(document).ready(function () {
         $('#City').change(function () { ChangeCustomer(); });
     });
@@ -331,10 +361,9 @@
             }
         });
     }
-
     </script>
     <script>
-        // 新增口味
+        // 新增序號
         $('#add-sn').click(function () {
             $.ajax({
             //url: '/Menu/AddTaste',
@@ -354,6 +383,42 @@
         $(document).on('click', '#del-sn', null, function (event) {
             event.preventDefault();
             $(this).parent().parent().parent().remove();
+        });
+    </script>
+    <script>
+        var TeamDetailPostBackURL = '@Url.Action("AllUser", "Customer")';
+        $(function () {
+            $(".AllUser").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                var options = { "backdrop": "static", keyboard: true };
+                $.ajax({
+                    type: "GET",
+                    url: TeamDetailPostBackURL,
+                    contentType: "application/json; charset=utf-8",
+                    datatype: "json",
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        $('.UserModal').modal('show');
+                        $("#hiddenInp").val(id);
+                        $("#quantity-count").val(0);
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+
+            $("#closbtn").click(function () {
+                $('.UserModal').modal('hide');
+            });
+        });
+    </script>
+    <script>
+        $('#checkuser').click(function () {
+            Console.log("btn-ok");
+
         });
     </script>
 

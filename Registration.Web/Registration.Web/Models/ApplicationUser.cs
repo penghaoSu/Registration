@@ -11,6 +11,8 @@ namespace Registration.Web.Models
     {
         public string Name { get; set; }
 
+        public bool IsLock { get; set; }
+
         public bool IsDelete { get; set; }
 
     }

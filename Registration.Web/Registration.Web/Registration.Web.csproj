@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\LogFile.cs" />
     <Compile Remove="Views\Home\Display.cshtml.cs" />
   </ItemGroup>
 

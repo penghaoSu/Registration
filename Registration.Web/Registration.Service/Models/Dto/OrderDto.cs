@@ -11,6 +11,7 @@ namespace Registration.Service.Models
         public int CustomerId { get; set; }
         public int OrderType { get; set; }
         public int Number { get; set; }
+        public int Module { get; set; }
         public DateTime? PurchaseDate { get; set; }
         public string Salesperson { get; set; }
         public string Deliveryperson { get; set; }

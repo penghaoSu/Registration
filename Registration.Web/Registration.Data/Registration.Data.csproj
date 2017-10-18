@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Compile Remove="Entities\RegistrationContext.cs" />
+    <Compile Remove="Enums\Extension\IndustryEnum.cs" />
     <Compile Remove="Enums\RegistrationContext.cs" />
   </ItemGroup>
 

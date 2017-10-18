@@ -114,16 +114,16 @@
             <div style="padding-left:100px;">
                 <div class="form-group row">
                     <div class="col-md-1 text-right">
-                        <label asp-for="OrderDto.AuthorizeType" class="col-form-label">模組種類</label>
+                        <label asp-for="OrderDto.Module" class="col-form-label">模組種類</label>
                     </div>
                     <div class="col-md-3">
-                        <select asp-for="OrderDto.AuthorizeType" class="form-control mb-2 mr-sm-2 mb-sm-2">
+                        <select asp-for="OrderDto.Module" class="form-control mb-2 mr-sm-2 mb-sm-2">
                             <option value="1">庫存</option>
                             <option value="2">配方</option>
                             <option value="3">促銷</option>
                             <option value="4">APP</option>
                         </select>
-                        <span asp-validation-for="OrderDto.AuthorizeType" class="text-danger"></span>
+                        <span asp-validation-for="OrderDto.Module" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-1 text-right">
@@ -264,7 +264,7 @@
         <div class="row justify-content-center">
             <div class="col-4 text-center">
                 <button type="submit" value="Create" class="btn btn-primary" id="Send">新增模組<i class="fa fa-check"></i></button>
-                <a asp-action="Index" class="btn btn-success">返回列表 <i class="fa fa-reply"></i></a>
+                <a asp-action="Index" asp-controller="Home" class="btn btn-success">返回列表 <i class="fa fa-reply"></i></a>
             </div>
         </div>
     </form>

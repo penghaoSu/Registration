@@ -8,6 +8,8 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Registration.Service.Interface;
+using Registration.Data.Enums;
+using Registration.Data.Enums.Extension;
 
 namespace Registration.Web.Controllers
 {
@@ -98,102 +100,85 @@ namespace Registration.Web.Controllers
 
                 foreach (var item in data2)
                 {
+                    // 行業別
+                    var industry = (IndustryEnum)Enum.Parse(typeof(IndustryEnum), item.Industry.ToString());
+                    // 區域
+                    var area = (AreaEnum)Enum.Parse(typeof(AreaEnum), item.Area.ToString());
+                    // 屬性
+                    var attribu = (AttributeEnum)Enum.Parse(typeof(AttributeEnum), item.Attribute.ToString());
+                    // 客戶編號
+                    var number = CheckNull(item.Number);
+                    // 客戶名稱
+                    var name = item.Name;
+                    // 聯絡人
+                    var contact = item.Contact;
+                    // 電話
+                    var phone = CheckNull(item.Phone);
+                    // 地址
+                    var city = await _customerService.GetCityNameAsync(item.CityId.Value);
+                    var cityArea = await _customerService.GetCityAreaNameAsync(item.CityAreaId.Value);
+                    var address = city + cityArea + item.Address;
 
                     row = new Row();
                     row.Append(
                         new Cell()
                         {
-                            CellValue = new CellValue(item.Industry.ToString()),
-                            DataType = CellValues.Number
-                        },
-                        
-                        new Cell()
-                        {
-                            CellValue = new CellValue(CheckNull(item.Number.ToString())),
-                            DataType = null
+                            CellValue = new CellValue(industry.Description()),
+                            DataType = CellValues.String
                         },
                         new Cell()
                         {
-                            CellValue = new CellValue(item.Attribute.ToString()),
-                            DataType = null
+                            CellValue = new CellValue(area.Description()),
+                            DataType = CellValues.String
+                        },
+                        new Cell()
+                        {
+                            CellValue = new CellValue(attribu.Description()),
+                            DataType = CellValues.String
+                        },
+                        new Cell()
+                        {
+                            CellValue = new CellValue(number),
+                            DataType = CellValues.String
+                        },
+                        new Cell()
+                        {
+                            CellValue = new CellValue(name),
+                            DataType = CellValues.String
+                        },
+                        new Cell()
+                        {
+                            CellValue = new CellValue(contact),
+                            DataType = CellValues.String
+                        },
+                        new Cell()
+                        {
+                            CellValue = new CellValue(phone),
+                            DataType = CellValues.String
+                        },
+                        new Cell()
+                        {
+                            CellValue = new CellValue(address),
+                            DataType = CellValues.String
                         }
-                        //new Cell()
-                        //{
-                        //    CellValue = new CellValue(CheckNull(item.Number.ToString())),
-                        //    DataType = CellValues.String
-                        //},
-                        //new Cell()
-                        //{
-                        //    CellValue = new CellValue(CheckNull(item.Name.ToString())),
-                        //    DataType = CellValues.String
-                        //}
                     );
                     sheetData.AppendChild(row);
                 }
-
-                //foreach (var item in data)
-                //{
-                //    row = new Row();
-                //    row.Append(
-                //        new Cell()
-                //        {
-                //            CellValue = new CellValue(item.Industry.ToString()),
-                //            DataType = CellValues.String
-                //        },
-                //        new Cell()
-                //        {
-                //            CellValue = new CellValue(item.Area.ToString()),
-                //            DataType = CellValues.String
-                //        },
-                //        new Cell()
-                //        {
-                //            CellValue = new CellValue(item.Attribute.ToString()),
-                //            DataType = CellValues.String
-                //        },
-                //        new Cell()
-                //        {
-                //            CellValue = new CellValue(item.Number.ToString()),
-                //            DataType = CellValues.String
-                //        },
-                //        new Cell()
-                //        {
-                //            CellValue = new CellValue(item.Name.ToString()),
-                //            DataType = CellValues.String
-                //        },
-                //        new Cell()
-                //        {
-                //            CellValue = new CellValue(item.Contact.ToString()),
-                //            DataType = CellValues.String
-                //        },
-                //        new Cell()
-                //        {
-                //            CellValue = new CellValue(item.Phone.ToString()),
-                //            DataType = CellValues.String
-                //        },
-                //        new Cell()
-                //        {
-                //            CellValue = new CellValue(item.Address.ToString()),
-                //            DataType = CellValues.String
-                //        }
-                //    );
-                //    sheetData.AppendChild(row);
-                //}
             }
             memoryStream.Seek(0, SeekOrigin.Begin);
             return new FileStreamResult(memoryStream,
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         }
 
-
         public string CheckNull(string data)
         {
             if (data == null)
             {
-                return "test";
+                return string.Empty;
             }
             else
             {
-                return "test2";
+                return data;
             }
 
         }

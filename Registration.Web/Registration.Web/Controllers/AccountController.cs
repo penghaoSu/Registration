@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using Registration.Web.Models;
 using Registration.Web.Models.AccountViewModels;
 using Registration.Web.Services;
+using Registration.Service.Interface;
 
 namespace Registration.Web.Controllers
 {
@@ -24,17 +25,20 @@ namespace Registration.Web.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private ILogFileService _logFileService;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            ILogFileService logFileService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _logFileService = logFileService;
         }
 
         [TempData]
@@ -62,6 +66,8 @@ namespace Registration.Web.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    
+
                     _logger.LogInformation("User logged in.");
                     return RedirectToLocal(returnUrl);
                 }
@@ -84,7 +90,7 @@ namespace Registration.Web.Controllers
                         return RedirectToLocal(returnUrl);
                     }
 
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "帳號或密碼錯誤");
                     return View(model);
                 }
             }
@@ -100,7 +106,7 @@ namespace Registration.Web.Controllers
             // 自動建立系統管理者
             if (exist == null && model.UserName == "admin")
             {
-                var user = new ApplicationUser { UserName = model.UserName };
+                var user = new ApplicationUser { UserName = model.UserName , IsDelete = false, IsLock = false };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

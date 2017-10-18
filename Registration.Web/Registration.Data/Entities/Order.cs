@@ -13,6 +13,7 @@ namespace Registration.Data
         public int Id { get; set; }
         public int CustomerId { get; set; }
         public int OrderType { get; set; }
+        public int Module { get; set; }
         public int Number { get; set; }
         public DateTime? PurchaseDate { get; set; }
         public string Salesperson { get; set; }

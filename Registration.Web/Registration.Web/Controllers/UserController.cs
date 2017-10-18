@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Registration.Service.Interface;
 using Registration.Data.Enums;
 using Registration.Web.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace Registration.Web.Controllers
 {
@@ -18,18 +19,21 @@ namespace Registration.Web.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IUserService _userService;
         private readonly IUserTokenService _userTokenService;
+        private ILogFileService _logFileService;
 
         public UserController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IUserService userService,
-            IUserTokenService userTokenService
+            IUserTokenService userTokenService,
+            ILogFileService logFileService
             )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _userService = userService;
             _userTokenService = userTokenService;
+            _logFileService = logFileService;
         }
 
         #region Index
@@ -63,7 +67,6 @@ namespace Registration.Web.Controllers
             };
 
             return View(viewModel);
-
         }
 
         [HttpPost]
@@ -72,7 +75,7 @@ namespace Registration.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = dto.UserName, Name = dto.Name };
+                var user = new ApplicationUser { UserName = dto.UserName, Name = dto.Name, IsDelete = false, IsLock = false };
                 var result = await _userManager.CreateAsync(user, dto.Password);
                 if (result.Succeeded)
                 {
@@ -80,6 +83,7 @@ namespace Registration.Web.Controllers
 
                     await _userManager.AddToRoleAsync(user, role.ToString());//Role(ViewModel.RoleId));
 
+                    await _logFileService.LogInformation("新增使用者", await _userTokenService.GetCurrentUserId());
                     //await _signInManager.SignInAsync(user, isPersistent: false);
 
                     return RedirectToAction(nameof(Index));
@@ -89,6 +93,36 @@ namespace Registration.Web.Controllers
             // If we got this far, something failed, redisplay form
             return View(dto);
 
+        }
+        #endregion
+
+        #region 停用.啟用
+        public async Task<IActionResult> IsLock(string id)
+        {
+            try
+            {
+                await _userService.LockAsync(id);
+            }
+            catch (DbUpdateException)
+            { }
+
+            return RedirectToAction(nameof(Index));
+        }
+        #endregion
+
+        #region 刪除
+        public async Task<IActionResult> Delete(string id)
+        {
+            try
+            {
+                await _userService.DeleteAsync(id);
+
+                await _logFileService.LogInformation("刪除使用者", await _userTokenService.GetCurrentUserId());
+            }
+            catch (DbUpdateException)
+            { }
+
+            return RedirectToAction(nameof(Index));
         }
         #endregion
 

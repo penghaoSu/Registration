@@ -1,4 +1,4 @@
-﻿@model IPagedList<Registration.Data.AspNetUsers>
+﻿@model IPagedList<Registration.Service.Models.UserModel>
 
 <div>
 
@@ -15,7 +15,10 @@
                     權限
                 </th>
                 <th width="10%">
-                    
+                    啟用
+                </th>
+                <th width="10%">
+
                 </th>
             </tr>
         </thead>
@@ -30,15 +33,38 @@
                         @item.Name
                     </td>
                     <td class="text-center">
-                        
+                        @foreach (var role in item.RoleId)
+                        {
+                            var ur = (RolesEnum)Enum.Parse(typeof(RolesEnum), role.RoleId);
+
+                            @ur.Description()
+                        }
+                    </td>
+                    <td class="text-center">
+                        @if (item.IsLock)
+                        {
+                            <span style="color:red">✗</span>
+                        }
+                        else
+                        {
+                            <span style="color:#00AA00">✓</span>
+                        }
                     </td>
                     <td align="center">
-                        <a asp-action="Display" asp-route-id="@item.Id" class="btn btn-primary btn-sm" data-toggle="tooltip" title="明細"><i class="fa fa-list-ul" aria-hidden="true"></i></a>
+                        @*<a asp-action="Display" asp-route-id="@item.Id" class="btn btn-primary btn-sm" data-toggle="tooltip" title="明細"><i class="fa fa-list-ul" aria-hidden="true"></i></a>*@
+                        @if (item.IsLock)
+                        {
+                            <a asp-action="IsLock" asp-route-id="@item.Id" class="btn btn-warning btn-sm" data-toggle="tooltip" title="啟用"><i class="fa fa-unlock-alt" aria-hidden="true"></i></a>
+                        }
+                        else
+                        {
+                            <a asp-action="IsLock" asp-route-id="@item.Id" class="btn btn-warning btn-sm" data-toggle="tooltip" title="停用"><i class="fa fa-lock" aria-hidden="true"></i></a>
+                        }
                         @{
                             var authority = ViewBag.Authority;
                             if (authority == "系統管理員")
                             {
-                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm" data-toggle="tooltip" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                @*<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm" data-toggle="tooltip" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></a>*@
                                 @*<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" data-toggle="tooltip" title="刪除" onclick="return confirm('確定刪除此筆資料？');"><i class="fa fa-times" aria-hidden="true"></i></a>*@
                                 <span data-toggle="tooltip" title="刪除">
                                     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal" data-id=@item.Id>
@@ -61,7 +87,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">確認刪除此筆客戶資料</h4>
+                <h4 class="modal-title">確認刪除此筆使用者資料</h4>
             </div>
             <div class="modal-footer">
                 <form asp-action="Delete" method="post" class="form-inline" role="form">

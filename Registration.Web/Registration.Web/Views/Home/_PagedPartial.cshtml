@@ -48,13 +48,22 @@
                 {
                     <tr>
                         <td class="text-center">
-                            @item.Industry
+                            @{
+                                var industry = (IndustryEnum)Enum.Parse(typeof(IndustryEnum), item.Industry.ToString());
+                                <span>@industry.Description()</span>
+                            }
                         </td>
                         <td class="text-center">
-                            @item.Area
+                            @{
+                                var area = (AreaEnum)Enum.Parse(typeof(AreaEnum), item.Area.ToString());
+                                <span>@area.Description()</span>
+                            }
                         </td>
                         <td class="text-center">
-                            @item.Attribute
+                            @{
+                                var attribu = (AttributeEnum)Enum.Parse(typeof(AttributeEnum), item.Attribute.ToString());
+                                <span>@attribu.Description()</span>
+                            }
                         </td>
                         <td class="text-center">
                             @item.Number
@@ -85,16 +94,19 @@
                             @order.Version
                         </td>
                         <td class="text-center">
-                            @order.Status
+                            @{
+                                var status = (StatusEnum)Enum.Parse(typeof(StatusEnum), order.Status.ToString());
+                                <span>@status.Description()</span>
+                            }
                         </td>
                         <td align="center">
-                            <a asp-action="Display" asp-route-id="@item.Id" class="btn btn-primary btn-sm" data-toggle="tooltip" title="明細"><i class="fa fa-list-ul" aria-hidden="true"></i></a>
+                            <a asp-action="Display" asp-route-id="@order.Id" class="btn btn-primary btn-sm" data-toggle="tooltip" title="明細"><i class="fa fa-list-ul" aria-hidden="true"></i></a>
                             @{
                                 var authority = ViewBag.Authority;
                                 if (authority == "系統管理員")
                                 {
                                     <a asp-action="CreateModule" asp-controller="Customer" asp-route-id="@item.Id" class="btn btn-dark btn-sm" data-toggle="tooltip" title="新增模組"><i class="fa fa-cube" aria-hidden="true"></i></a>
-                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm" data-toggle="tooltip" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    @*<a asp-action="Edit" asp-route-id="@order.Id" class="btn btn-success btn-sm" data-toggle="tooltip" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></a>*@
                                     @*<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" data-toggle="tooltip" title="刪除" onclick="return confirm('確定刪除此筆資料？');"><i class="fa fa-times" aria-hidden="true"></i></a>*@
                                     <span data-toggle="tooltip" title="刪除">
                                         <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal" data-id=@item.Id>
@@ -132,7 +144,7 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
 
 <div id="AllModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">

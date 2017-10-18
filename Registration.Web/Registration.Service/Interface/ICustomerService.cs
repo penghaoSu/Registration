@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Registration.Data;
 using Registration.Service.Models;
+using Registration.Service.Models.ViewModels;
 using Sakura.AspNetCore;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,12 @@ namespace Registration.Service.Interface
         /// <param name="page"></param>
         /// <returns></returns>
         Task<IEnumerable<CustomerModel>> GetAllAsync(CustomerSearch param, int page);
+
+        /// <summary>
+        /// 取得使用者列表
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<UserModel>> GetAllUserAsync();
 
         /// <summary>
         /// 新增
@@ -71,6 +78,13 @@ namespace Registration.Service.Interface
         Task<Customer> GetAllOrderAsync(int cid);
 
         /// <summary>
+        /// 取得客戶單筆訂單資料
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        Task<CustomerOrderViewModel> GetOrderByIdAsync(int cid);
+
+        /// <summary>
         /// 取得所有訂單資料並作匯出
         /// </summary>
         /// <returns></returns>
@@ -87,6 +101,20 @@ namespace Registration.Service.Interface
         /// </summary>
         /// <returns></returns>
         Task<IEnumerable<SelectListItem>> GetCityAreaAsync(int cityId);
+
+        /// <summary>
+        /// 取得縣市名稱
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<string> GetCityNameAsync(int id);
+
+        /// <summary>
+        /// 取得地區名稱
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<string> GetCityAreaNameAsync(int id);
 
     }
 }

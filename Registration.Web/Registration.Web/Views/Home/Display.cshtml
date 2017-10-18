@@ -1,4 +1,4 @@
-﻿@*@model Registration.Service.Models.CustomerDto
+﻿@model Registration.Service.Models.ViewModels.CustomerOrderViewModel
 @using Registration.Data.Enums;
 @using Registration.Data.Enums.Extension;
 
@@ -21,63 +21,77 @@
         <div style="padding-left:100px;">
             <div class="form-group row">
                 <div class="col-md-1 text-right">
-                    <label asp-for="Industry" class="col-form-label">行業別</label>
+                    <label asp-for="Customer.Industry" class="col-form-label">行業別</label>
                 </div>
                 <div class="col-md-3">
-                    <input asp-for="Industry" class="form-control" readonly />
+                    <input asp-for="Customer.Industry" class="form-control" readonly />
                 </div>
 
                 <div class="col-md-1 text-right">
-                    <label asp-for="Area" class="col-form-label">區域</label>
+                    <label asp-for="Customer.Area" class="col-form-label">區域</label>
                 </div>
                 <div class="col-md-3">
-                    <input asp-for="Area" class="form-control" readonly />
+                    <input asp-for="Customer.Area" class="form-control" readonly />
                 </div>
 
                 <div class="col-md-1 text-right">
-                    <label asp-for="Contact" class="col-form-label">聯絡人</label>
+                    <label asp-for="Customer.Contact" class="col-form-label">聯絡人</label>
                 </div>
                 <div class="col-md-3">
-                    <input asp-for="Contact" class="form-control" readonly />
+                    <input asp-for="Customer.Contact" class="form-control" readonly />
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-1 text-right">
-                    <label asp-for="Attribute" class="col-form-label">客戶屬性</label>
+                    <label asp-for="Customer.Attribute" class="col-form-label">客戶屬性</label>
                 </div>
                 <div class="col-md-3">
-                    <input asp-for="Attribute" class="form-control" readonly />
+                    <input asp-for="Customer.Attribute" class="form-control" readonly />
                 </div>
 
                 <div class="col-md-1 text-right">
-                    <label asp-for="Number" class="col-form-label">客戶編號</label>
+                    <label asp-for="Customer.Number" class="col-form-label">客戶編號</label>
                 </div>
                 <div class="col-md-3">
-                    <input asp-for="Number" class="form-control" readonly />
+                    <input asp-for="Customer.Number" class="form-control" readonly />
                 </div>
 
                 <div class="col-md-1 text-right">
-                    <label asp-for="Name" class="col-form-label">客戶名稱</label>
+                    <label asp-for="Customer.Name" class="col-form-label">客戶名稱</label>
                 </div>
                 <div class="col-md-3">
-                    <input asp-for="Name" class="form-control" readonly />
+                    <input asp-for="Customer.Name" class="form-control" readonly />
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-1 text-right">
-                    <label asp-for="Phone" class="col-form-label">電話</label>
+                    <label asp-for="Customer.Phone" class="col-form-label">電話</label>
                 </div>
                 <div class="col-md-3">
-                    <input asp-for="Phone" class="form-control" readonly />
+                    <input asp-for="Customer.Phone" class="form-control" readonly />
                 </div>
 
                 <div class="col-md-1 text-right">
-                    <label asp-for="Address" class="col-form-label">地址</label>
+                    <label asp-for="Customer.Address" class="col-form-label">地址</label>
                 </div>
                 <div class="col-md-7">
-                    <input asp-for="Address" class="form-control" readonly />
+                    <div class="row">
+                        <div class="col-3">
+                            <select id="City" class="form-control" asp-for="Customer.CityId" asp-items="Model.City" disabled>
+                                <option>= 縣市 =</option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <select id="CityArea" class="form-control" asp-for="Customer.CityAreaId" asp-items="Model.CityArea" disabled>
+                                <option>= 地區 =</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <input asp-for="Customer.Address" class="form-control" readonly />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -95,34 +109,34 @@
         <div style="padding-left:100px;">
             <div class="form-group row">
                 <div class="col-md-1 text-right">
-                    <label asp-for="PurchaseDate" class="col-form-label">購買日期</label>
+                    <label asp-for="Order.PurchaseDate" class="col-form-label">購買日期</label>
                 </div>
                 <div class="col-md-3">
-                    <input asp-for="PurchaseDate" class="form-control" type="date" readonly />
+                    <input asp-for="Order.PurchaseDate" class="form-control" type="date" readonly />
                 </div>
 
                 <div class="col-md-1 text-right">
-                    <label asp-for="Salesperson" class="col-form-label">業務人員</label>
+                    <label asp-for="Order.Salesperson" class="col-form-label">業務人員</label>
                 </div>
                 <div class="col-md-3">
-                    <input asp-for="Salesperson" class="form-control" readonly />
+                    <input asp-for="Order.Salesperson" class="form-control" readonly />
                 </div>
 
                 <div class="col-md-1 text-right">
-                    <label asp-for="Deliveryperson" class="col-form-label">交機人員</label>
+                    <label asp-for="Order.Deliveryperson" class="col-form-label">交機人員</label>
                 </div>
                 <div class="col-md-3">
-                    <input asp-for="Deliveryperson" class="form-control" readonly />
+                    <input asp-for="Order.Deliveryperson" class="form-control" readonly />
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-1 text-right">
-                    <label asp-for="IsReceipt" class="col-form-label">是否已收款</label>
+                    <label asp-for="Order.IsReceipt" class="col-form-label">是否已收款</label>
                 </div>
                 <div class="col-md-3" style="padding-top:7px;">
                     <label class="custom-control custom-checkbox">
-                        <input asp-for="IsReceipt" type="checkbox" class="custom-control-input" disabled>
+                        <input asp-for="Order.IsReceipt" type="checkbox" class="custom-control-input" disabled>
                         <span class="custom-control-indicator"></span>
                         <span class="custom-control-description"></span>
                     </label>
@@ -142,10 +156,10 @@
         <div style="padding-left:100px;">
             <div class="form-group row">
                 <div class="col-md-1 text-right">
-                    <label asp-for="AuthorizeType" class="col-form-label">授權種類</label>
+                    <label asp-for="Order.AuthorizeType" class="col-form-label">授權種類</label>
                 </div>
                 <div class="col-md-3">
-                    <select asp-for="AuthorizeType" class="form-control mb-2 mr-sm-2 mb-sm-2" disabled>
+                    <select asp-for="Order.AuthorizeType" class="form-control mb-2 mr-sm-2 mb-sm-2" disabled>
                         <option value="1">租用</option>
                         <option value="2">買斷</option>
                         <option value="3">試用</option>
@@ -153,66 +167,66 @@
                 </div>
 
                 <div class="col-md-1 text-right">
-                    <label asp-for="Version" class="col-form-label">主版本</label>
+                    <label asp-for="Order.Version" class="col-form-label">主版本</label>
                 </div>
                 <div class="col-md-3">
-                    <input asp-for="Version" class="form-control" readonly />
+                    <input asp-for="Order.Version" class="form-control" readonly />
                 </div>
 
                 <div class="col-md-1 text-right">
-                    <label asp-for="Revision" class="col-form-label">版次</label>
+                    <label asp-for="Order.Revision" class="col-form-label">版次</label>
                 </div>
                 <div class="col-md-3">
-                    <input asp-for="Revision" class="form-control" readonly />
+                    <input asp-for="Order.Revision" class="form-control" readonly />
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-1 text-right">
-                    <label asp-for="Warranty" class="col-form-label">保固年份</label>
+                    <label asp-for="Order.Warranty" class="col-form-label">保固年份</label>
                 </div>
                 <div class="col-md-3">
-                    <input asp-for="Warranty" class="form-control" readonly />
+                    <input asp-for="Order.Warranty" class="form-control" readonly />
                 </div>
 
                 <div class="col-md-1 text-right">
-                    <label asp-for="WarrantyPeriodStr" class="col-form-label">保固期限</label>
+                    <label asp-for="Order.WarrantyPeriodStr" class="col-form-label">保固期限</label>
                 </div>
                 <div class="col-md-2">
-                    <input asp-for="WarrantyPeriodStr" class="form-control" type="date" readonly />
+                    <input asp-for="Order.WarrantyPeriodStr" class="form-control" type="date" readonly />
                 </div>
                 <div class="">~</div>
                 <div class="col-md-2">
-                    <input asp-for="WarrantyPeriodEnd" class="form-control" type="date" readonly />
+                    <input asp-for="Order.WarrantyPeriodEnd" class="form-control" type="date" readonly />
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-1 text-right">
-                    <label asp-for="Lease" class="col-form-label">租用期數</label>
+                    <label asp-for="Order.Lease" class="col-form-label">租用期數</label>
                 </div>
                 <div class="col-md-3">
-                    <input asp-for="Lease" class="form-control" readonly />
+                    <input asp-for="Order.Lease" class="form-control" readonly />
                 </div>
 
                 <div class="col-md-1 text-right">
-                    <label asp-for="LeaseDateStr" class="col-form-label">租用期限</label>
+                    <label asp-for="Order.LeaseDateStr" class="col-form-label">租用期限</label>
                 </div>
                 <div class="col-md-2">
-                    <input asp-for="LeaseDateStr" class="form-control" type="date" readonly />
+                    <input asp-for="Order.LeaseDateStr" class="form-control" type="date" readonly />
                 </div>
                 <div class="">~</div>
                 <div class="col-md-2">
-                    <input asp-for="LeaseDateEnd" class="form-control" type="date" readonly />
+                    <input asp-for="Order.LeaseDateEnd" class="form-control" type="date" readonly />
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-1 text-right">
-                    <label asp-for="Module" class="col-form-label">擴充模組</label>
+                    <label asp-for="Order.Module" class="col-form-label">擴充模組</label>
                 </div>
                 <div class="col-md-3">
-                    <select asp-for="Module" class="form-control mb-2 mr-sm-2 mb-sm-2" disabled>
+                    <select asp-for="Order.Module" class="form-control mb-2 mr-sm-2 mb-sm-2" disabled>
                         <option value="1">庫存</option>
                         <option value="2">配方</option>
                         <option value="3">促銷</option>
@@ -221,11 +235,11 @@
                 </div>
 
                 <div class="col-md-1 text-right">
-                    <label asp-for="IsAutoUpdate" class="col-form-label">自動更版</label>
+                    <label asp-for="Order.IsAutoUpdate" class="col-form-label">自動更版</label>
                 </div>
                 <div class="col-md-3" style="padding-top:7px;">
                     <label class="custom-control custom-checkbox">
-                        <input asp-for="IsAutoUpdate" type="checkbox" class="custom-control-input" disabled>
+                        <input asp-for="Order.IsAutoUpdate" type="checkbox" class="custom-control-input" disabled>
                         <span class="custom-control-indicator"></span>
                         <span class="custom-control-description"></span>
                     </label>
@@ -234,24 +248,24 @@
 
             <div class="form-group row">
                 <div class="col-md-1 text-right">
-                    <label asp-for="SerialNumber" class="col-form-label">軟體序號</label>
+                    <label asp-for="Order.SerialNumber" class="col-form-label">軟體序號</label>
                 </div>
                 <div class="col-md-3">
-                    <input asp-for="SerialNumber" class="form-control" readonly />
+                    <input asp-for="Order.SerialNumber" class="form-control" readonly />
                 </div>
 
                 <div class="col-md-1 text-right">
-                    <label asp-for="StartDate" class="col-form-label">啟用日期</label>
+                    <label asp-for="Order.StartDate" class="col-form-label">啟用日期</label>
                 </div>
                 <div class="col-md-3">
-                    <input asp-for="StartDate" class="form-control" type="date" readonly />
+                    <input asp-for="Order.StartDate" class="form-control" type="date" readonly />
                 </div>
 
                 <div class="col-md-1 text-right">
-                    <label asp-for="Status" class="col-form-label">軟體狀態</label>
+                    <label asp-for="Order.Status" class="col-form-label">軟體狀態</label>
                 </div>
                 <div class="col-md-3">
-                    @{ var status = (StatusEnum)Model.Status;
+                    @{ var status = (StatusEnum)Model.Order.Status;
                         <input value="@status.Description()" class="form-control" readonly />
                     }
                 </div>
@@ -269,4 +283,4 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}*@
+}

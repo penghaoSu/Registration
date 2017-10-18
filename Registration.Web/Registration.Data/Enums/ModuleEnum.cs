@@ -7,6 +7,9 @@ namespace Registration.Data.Enums
 {
     public enum ModuleEnum
     {
+        [Description("")]
+        None = 0,
+
         [Description("庫存")]
         Stock = 1,
 

@@ -8,8 +8,6 @@ namespace Registration.Service.Models
     {
         public int Cid { get; set; }
 
-        public int Module { get; set; }
-
         public IEnumerable<SerialNumber> ModuleSerialNumber { get; set; }
     }
 }

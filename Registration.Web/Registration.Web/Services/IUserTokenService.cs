@@ -26,9 +26,16 @@ namespace Registration.Web.Services
         Task<string> GetCurrentUserRoleId();
 
         /// <summary>
-        /// 取得登入者門市ID
+        /// 取得登入者刪除狀態
         /// </summary>
         /// <returns></returns>
-        //Task<int?> GetCurrentUserStoreId();
+        Task<bool> GetUserDelete();
+
+        /// <summary>
+        /// 取得登入者停用狀態
+        /// </summary>
+        /// <returns></returns>
+        Task<bool> GetUserLock();
+
     }
 }

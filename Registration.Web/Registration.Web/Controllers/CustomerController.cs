@@ -16,12 +16,15 @@ namespace Registration.Web.Controllers
     {
         private ICustomerService _customerService;
         private IUserTokenService _userTokenService;
+        private ILogFileService _logFileService;
 
-        public CustomerController(ICustomerService customerService, IUserTokenService userTokenService)
+        public CustomerController(ICustomerService customerService, IUserTokenService userTokenService, ILogFileService logFileService)
         {
             _customerService = customerService;
 
             _userTokenService = userTokenService;
+
+            _logFileService = logFileService;
         }
 
         #region Index
@@ -68,7 +71,9 @@ namespace Registration.Web.Controllers
 
                 await _customerService.CreateAsync(model);
 
-                return RedirectToAction(nameof(HomeController.Index));
+                await _logFileService.LogInformation("新增客戶", await _userTokenService.GetCurrentUserId());
+
+                return RedirectToAction("Index", "Home");
             }
             catch (DbUpdateException)
             {
@@ -113,7 +118,9 @@ namespace Registration.Web.Controllers
 
                 await _customerService.CreateModuleAsync(model);
 
-                return RedirectToAction(nameof(HomeController.Index));
+                await _logFileService.LogInformation("新增模組", await _userTokenService.GetCurrentUserId());
+
+                return RedirectToAction("Index", "Home");
             }
             catch (DbUpdateException)
             {
@@ -143,11 +150,11 @@ namespace Registration.Web.Controllers
 
                 return PartialView("_AllOrder", model);
             }
-            catch(DbUpdateException)
+            catch (DbUpdateException)
             {
 
             }
-            
+
 
             return PartialView("_AllOrder");
         }
@@ -161,6 +168,13 @@ namespace Registration.Web.Controllers
             };
 
             return PartialView("_SerialNumber", model);
+        }
+
+        public async Task<IActionResult> AllUser()
+        {
+            var model = await _customerService.GetAllUserAsync();
+
+            return PartialView("_AllUser", model);
         }
 
     }

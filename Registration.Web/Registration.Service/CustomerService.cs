@@ -9,12 +9,13 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Sakura.AspNetCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Registration.Service.Models.ViewModels;
 
 namespace Registration.Service
 {
     public class CustomerService : ServiceBase, ICustomerService
     {
-        private int pageSize = 5;
+        private int pageSize = 10;
 
         public CustomerService(IMapper mapper, RegistrationContext context) : base(mapper, context)
         { }
@@ -38,6 +39,7 @@ namespace Registration.Service
 
                     order.CustomerId = customer.Id;
                     order.OrderType = 1;
+                    order.Module = 0;
                     order.Status = 2;
                     order.SerialNumber = item.SN;
                     order.CreateDate = DateTime.Now;
@@ -47,11 +49,11 @@ namespace Registration.Service
 
                 // 新增產品金鑰
                 var productKey = new List<ProductKey>();
-                for (int i = 0; i < model.OrderDto.Number; i++)
+                foreach (var item in orders)
                 {
                     productKey.Add(new ProductKey()
                     {
-                        OrderId = customer.Id,
+                        OrderId = item.Id,
                         Key = Guid.NewGuid().ToString(),
                         Date = DateTime.Now
                     });
@@ -78,6 +80,7 @@ namespace Registration.Service
 
                     order.CustomerId = model.CustomerNew.Id;
                     order.OrderType = 2;
+                    order.Module = model.OrderDto.Module;
                     order.Status = 2;
                     order.SerialNumber = item.SN;
                     order.CreateDate = DateTime.Now;
@@ -98,7 +101,6 @@ namespace Registration.Service
                         Date = DateTime.Now
                     });
                 }
-
                 _context.ProductKey.AddRange(productKey);
 
                 await _context.SaveChangesAsync();
@@ -179,9 +181,26 @@ namespace Registration.Service
 
                 }).ToList()
 
-            }).OrderByDescending(c => c.Id).AsNoTracking().ToPagedList(pageSize, pageNumber);
+            }).OrderByDescending(o => o.Id).AsNoTracking().ToPagedList(pageSize, pageNumber);
 
             return data;
+        }
+        #endregion
+
+        #region 取得使用者列表
+        public async Task<IEnumerable<UserModel>> GetAllUserAsync()
+        {
+            var result = await _context.AspNetUsers.Select(u => new UserModel
+            {
+                Id = u.Id,
+                Name = u.Name,
+                UserName = u.UserName,
+                IsLock = u.IsLock,
+                IsDelete = u.IsDelete
+
+            }).Where(u => !u.IsDelete).OrderBy(u => u.Id).AsNoTracking().ToListAsync();
+
+            return result;
         }
         #endregion
 
@@ -247,6 +266,56 @@ namespace Registration.Service
         }
         #endregion
 
+        public async Task<CustomerOrderViewModel> GetOrderByIdAsync(int id)
+        {
+            var result = new CustomerOrderViewModel
+            {
+                Order = await _context.Order.Select(o => new Order
+                {
+
+                    Id = o.Id,
+                    CustomerId = o.CustomerId,
+                    OrderType = o.OrderType,
+                    Module = o.Module,
+                    Number = o.Module,
+                    PurchaseDate = o.PurchaseDate,
+                    Salesperson = o.Salesperson,
+                    Deliveryperson = o.Deliveryperson,
+                    IsReceipt = o.IsReceipt,
+                    AuthorizeType = o.AuthorizeType,
+                    Version = o.Version,
+                    Revision = o.Revision,
+                    Warranty = o.Warranty,
+                    WarrantyPeriodStr = o.WarrantyPeriodStr,
+                    WarrantyPeriodEnd = o.WarrantyPeriodEnd,
+                    Lease = o.Module,
+                    LeaseDateEnd = o.LeaseDateEnd,
+                    LeaseDateStr = o.LeaseDateStr,
+                    SerialNumber = o.SerialNumber,
+                    StartDate = o.StartDate,
+                    IsAutoUpdate = o.IsAutoUpdate,
+                    Status = o.Status,
+                    CreateDate = o.CreateDate,
+                    //Customer = o.Customer
+                    //ProductKey = o.ProductKey.Select(p => new ProductKey
+                    //{
+                    //    Id = p.Id,
+                    //    Key = p.Key,
+                    //    Date = p.Date
+
+                    //}).ToList()
+
+                }).SingleOrDefaultAsync(o => o.Id == id),
+
+            };
+
+            result.Customer = await _context.Customer.SingleOrDefaultAsync(c => c.Id == result.Order.CustomerId);
+            result.City = await GetCityAsync();
+            result.CityArea = await GetCityAreaAsync(result.Customer.CityId.Value);
+
+            return result;
+        }
+
         #region 取得客戶所有訂單資料
         public async Task<Customer> GetAllOrderAsync(int cid)
         {
@@ -258,34 +327,34 @@ namespace Registration.Service
             //    Attribute = c.Attribute,
             //    Name = c.Name,
             //    Number = c.Number,
-            //Order = c.Order.Select(o => new OrderDto
-            //{
-            //Id = o.Id,
-            //CustomerId = o.CustomerId,
-            //PurchaseDate = o.PurchaseDate,
-            //Deliveryperson = o.Deliveryperson,
-            //Salesperson = o.Salesperson,
-            //IsReceipt = o.IsReceipt,
-            //Version = o.Version,
-            //IsAutoUpdate = o.IsAutoUpdate,
-            //Status = o.Status,
-            //ProductKey = o.ProductKey.Select(p => new ProductKey
-            //{
+            //    Order = c.Order.Select(o => new OrderDto
+            //    {
+            //        Id = o.Id,
+            //        CustomerId = o.CustomerId,
+            //        PurchaseDate = o.PurchaseDate,
+            //        Deliveryperson = o.Deliveryperson,
+            //        Salesperson = o.Salesperson,
+            //        IsReceipt = o.IsReceipt,
+            //        Version = o.Version,
+            //        IsAutoUpdate = o.IsAutoUpdate,
+            //        Status = o.Status,
+            //        ProductKey = o.ProductKey.Select(p => new ProductKey
+            //        {
 
-            //    Key = p.Key,
-            //    Date = p.Date
+            //            Key = p.Key,
+            //            Date = p.Date
 
-            //}).ToList()
+            //        }).ToList()
 
-            //}).ToList()
+            //    }).ToList()
 
-            //}).AsNoTracking().SingleOrDefaultAsync(c=>c.Id == cid);
+            //}).AsNoTracking().SingleOrDefaultAsync(c => c.Id == cid);
 
-            var data = await _context.Customer
+            var result = await _context.Customer
                 .Include(o => o.Order)
-                .ThenInclude(p => p.ProductKey).SingleOrDefaultAsync(o => o.Id == cid);
+                .ThenInclude(p => p.ProductKey).AsNoTracking().SingleOrDefaultAsync(o => o.Id == cid);
 
-            return data;
+            return result;
         }
         #endregion
 
@@ -297,6 +366,24 @@ namespace Registration.Service
                 .ThenInclude(p => p.ProductKey).AsNoTracking().ToListAsync();
 
             return data;
+        }
+        #endregion
+
+        #region 取得縣市名稱
+        public async Task<string> GetCityNameAsync(int id)
+        {
+            var result = await _context.City.SingleOrDefaultAsync(c => c.Id == id);
+
+            return result.Name;
+        }
+        #endregion
+
+        #region 取得地區名稱
+        public async Task<string> GetCityAreaNameAsync(int id)
+        {
+            var result = await _context.CityArea.SingleOrDefaultAsync(ca => ca.Id == id);
+
+            return result.Name;
         }
         #endregion
 

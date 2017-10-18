@@ -7,7 +7,7 @@ namespace Registration.Service.Models
 {
     public class UserViewModel
     {
-        public IEnumerable<AspNetUsers> User { get; set; }
+        public IEnumerable<UserModel> User { get; set; }
 
         public UserSearch SearchParams { get; set; }
     }

@@ -7,14 +7,20 @@ namespace Registration.Data.Enums
 {
     public enum StatusEnum
     {
-        [Description("餐影業")]
+        [Description("試用")]
         FreeTrial = 1,
 
-        [Description("資訊業")]
+        [Description("未啟動")]
         NotStart = 2,
 
-        [Description("營造業")]
+        [Description("正常")]
         Normal = 3,
+
+        [Description("過保")]
+        Warranty = 4,
+
+        [Description("異常")]
+        Abnormal = 5,
 
     }
 }

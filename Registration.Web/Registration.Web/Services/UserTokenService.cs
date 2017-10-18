@@ -43,6 +43,16 @@ namespace Registration.Web.Services
             return roles[0];
         }
 
-        
+        public async Task<bool> GetUserDelete()
+        {
+            ApplicationUser usr = await GetCurrentUserAsync();
+            return usr.IsDelete;
+        }
+
+        public async Task<bool> GetUserLock()
+        {
+            ApplicationUser usr = await GetCurrentUserAsync();
+            return usr.IsLock;
+        }
     }
 }

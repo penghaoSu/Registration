@@ -10,11 +10,16 @@ namespace Registration.Service.Interface
 {
     public interface IUserService
     {
-        // 取列表
-        Task<IEnumerable<AspNetUsers>> GetAllAsync(UserSearch param, int page);
-
         /// <summary>
-        /// 取所有角色權限
+        /// 取得使用者列表
+        /// </summary>
+        /// <param name="param"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        Task<IEnumerable<UserModel>> GetAllAsync(UserSearch param, int page);
+                
+        /// <summary>
+        /// 取得角色權限
         /// </summary>
         /// <param name="userRoleId"></param>
         /// <returns></returns>
@@ -25,7 +30,14 @@ namespace Registration.Service.Interface
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<bool> DeleteAsync(string id);
+        Task DeleteAsync(string id);
+
+        /// <summary>
+        /// 停用/啟用
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task LockAsync(string id);
 
         /// <summary>
         /// 取得單筆

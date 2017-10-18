@@ -60,7 +60,7 @@ namespace Registration.Web
 
             services.AddAutoMapper();
 
-            var connection = @"Server=.;Database=Registration;User Id=sa;Password=123456;";
+            var connection = @"Server=192.168.1.50;Database=Registration;User Id=sa;Password=123456;";
             services.AddDbContext<RegistrationContext>(options => options.UseSqlServer(connection));
 
             // Add application services.
@@ -68,6 +68,7 @@ namespace Registration.Web
             services.AddTransient<ICustomerService, CustomerService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUserTokenService, UserTokenService>();
+            services.AddTransient<ILogFileService, LogFileService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

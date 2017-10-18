@@ -48,111 +48,21 @@ namespace Registration.Web.Controllers
         }
         #endregion
 
-        #region Create New
-        public IActionResult CreateNew()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateNew(CustomerCreateViewModel model)
-        {
-            try
-            {
-                await _customerService.CreateAsync(model);
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch(DbUpdateException ex)
-            {
-
-            }
-
-            return View();
-        }
-        #endregion
-
-        #region Create Old
-        public IActionResult CreateOld()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateOld(CustomerCreateViewModel model)
-        {
-            try
-            {
-                await _customerService.CreateAsync(model);
-
-                return RedirectToAction("Index");
-            }
-            catch (DbUpdateException ex)
-            {
-
-            }
-
-            return View();
-        }
-        #endregion
-
-        #region Create Module
-        public async Task<IActionResult> CreateModule(int? id)
-        {
-            try
-            {
-                var model = new CustomerCreateViewModel()
-                {
-                    CustomerNew = await _customerService.GetCustomerByIdAsync(id.Value),
-                    OrderDto = new OrderDto()
-                };
-
-                return View(model);
-            }
-            catch(DbUpdateException)
-            {
-
-            }
-
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateModule(CustomerCreateViewModel model)
-        {
-            try
-            {
-                await _customerService.CreateModuleAsync(model);
-
-                return RedirectToAction("Index");
-            }
-            catch (DbUpdateException)
-            {
-
-            }
-
-            return View();
-        }
-        #endregion
-
         #region Edit
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
 
-            var model = await _customerService.GetCustomerByIdAsync(id.Value);
-            if (model == null)
-            {
-                return NotFound();
-            }
+            //var model = await _customerService.GetOrderByIdAsync(id.Value);
+            //if (model == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return View(model);
+            return View();
         }
 
 
@@ -186,11 +96,11 @@ namespace Registration.Web.Controllers
         {
             try
             {
-                var model = await _customerService.GetCustomerByIdAsync(id);
+                var model = await _customerService.GetOrderByIdAsync(id);
 
                 return View(model);
             }
-            catch (DbUpdateException ex)
+            catch (DbUpdateException)
             {
 
             }
@@ -211,7 +121,7 @@ namespace Registration.Web.Controllers
                     ModelState.AddModelError("", "無此筆資料");
                 }
             }
-            catch (DbUpdateException ex)
+            catch (DbUpdateException)
             {
                 ModelState.AddModelError("", "刪除失敗");
             }
@@ -221,7 +131,7 @@ namespace Registration.Web.Controllers
         }
         #endregion
 
-        public async Task<IActionResult> AddSn(int Id)
+        public IActionResult AddSn(int Id)
         {
             return PartialView("_SerialNumber");
         }
