@@ -9,5 +9,7 @@ namespace Registration.Data
         public DateTime Date { get; set; }
         public string Item { get; set; }
         public string UserId { get; set; }
+
+        public AspNetUsers User { get; set; }
     }
 }

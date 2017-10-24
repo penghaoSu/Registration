@@ -1,0 +1,59 @@
+﻿@model Registration.Service.Models.OrderDetailDto
+
+@{
+    string guid = Guid.NewGuid().ToString();
+}
+
+<tr class="Detail">
+    <td width="8%" style="vertical-align:inherit;" class="text-center">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <button class="AddItem btn btn-success btn-sm" data-toggle="tooltip" title="新增"><i class="fa fa-plus" style="color:white;" aria-hidden="true"></i></button>
+        <button class="DelItem btn btn-danger btn-sm" data-toggle="tooltip" title="刪除"><i class="fa fa-remove" style="color:white;" aria-hidden="true"></i></button>
+    </td>
+    <td>
+        <input asp-for="Quantity" class="form-control" name="details[@guid].Quantity" min="0" value="0" />
+        <span asp-validation-for="Quantity" class="text-danger"></span>
+    </td>
+    <td>
+        <select asp-for="AuthorizeType" class="form-control mb-2 mr-sm-2 mb-sm-2" name="details[@guid].AuthorizeType">
+            <option value="1">租用</option>
+            <option value="2">買斷</option>
+            <option value="3">試用</option>
+        </select>
+    </td>
+    <td>
+        <input asp-for="Version" class="form-control" name="details[@guid].Version"/>
+        <span asp-validation-for="Version" class="text-danger"></span>
+    </td>
+    <td>
+        <input asp-for="Revision" class="form-control" name="details[@guid].Revision"/>
+        <span asp-validation-for="Revision" class="text-danger"></span>
+    </td>
+    <td>
+        <input asp-for="Warranty" class="form-control" name="details[@guid].Warranty" type="number" min="0" value="0" />
+        <span asp-validation-for="Warranty" class="text-danger"></span>
+    </td>
+    <td>
+        <input asp-for="WarrantyPeriodStr" class="form-control" type="date" name="details[@guid].WarrantyPeriodStr" />
+        <span asp-validation-for="WarrantyPeriodStr" class="text-danger"></span>
+        <input asp-for="WarrantyPeriodEnd" class="form-control" type="date" name="details[@guid].WarrantyPeriodEnd" />
+        <span asp-validation-for="WarrantyPeriodEnd" class="text-danger"></span>
+    </td>
+    <td>
+        <input asp-for="Lease" class="form-control" type="number" min="0" value="0" name="details[@guid].Lease" />
+        <span asp-validation-for="Lease" class="text-danger"></span>
+    </td>
+    <td>
+        <input asp-for="LeaseDateStr" class="form-control" type="date" name="details[@guid].LeaseDateStr"/>
+        <span asp-validation-for="LeaseDateStr" class="text-danger"></span>
+        <input asp-for="LeaseDateEnd" class="form-control" type="date" name="details[@guid].LeaseDateEnd"/>
+        <span asp-validation-for="LeaseDateEnd" class="text-danger"></span>
+    </td>
+    <td>
+        <label class="custom-control custom-checkbox">
+            <input asp-for="IsAutoUpdate" type="checkbox" class="custom-control-input" name="details[@guid].IsAutoUpdate">
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description"></span>
+        </label>
+    </td>
+</tr>

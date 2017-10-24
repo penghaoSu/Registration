@@ -6,17 +6,21 @@ using System.Text;
 
 namespace Registration.Service.Models
 {
-    public class CustomerViewModel
+    public class OrderViewModel
     {
-        public IEnumerable<CustomerModel> Customer { get; set; }     
+        public IEnumerable<OrderDto> Order { get; set; }     
 
         public CustomerSearch SearchParams { get; set; }
     }
 
     public class CustomerSearch
     {
+        public string Selector { get; set; }
+
         public string Keyword { get; set; }
 
-        public string Name { get; set; }
+        public DateTime StartDate { get; set; }
+
+        public DateTime EndDate { get; set; }
     }
 }

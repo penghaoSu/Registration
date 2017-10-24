@@ -69,6 +69,7 @@ namespace Registration.Web
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUserTokenService, UserTokenService>();
             services.AddTransient<ILogFileService, LogFileService>();
+            services.AddTransient<IKeyService, KeyService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -18,6 +18,7 @@ namespace Registration.Data
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<LogFile> LogFile { get; set; }
         public virtual DbSet<Order> Order { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetail { get; set; }
         public virtual DbSet<ProductKey> ProductKey { get; set; }
 
         public RegistrationContext(DbContextOptions<RegistrationContext> options) : base(options)
@@ -176,10 +177,31 @@ namespace Registration.Data
                 entity.Property(e => e.UserId)
                     .IsRequired()
                     .HasMaxLength(450);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.LogFile)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_LogFile_AspNetUsers");
             });
 
             modelBuilder.Entity<Order>(entity =>
             {
+                entity.Property(e => e.PurchaseDate).HasColumnType("date");
+
+                entity.Property(e => e.Salesperson).HasMaxLength(50);
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.Order)
+                    .HasForeignKey(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Order_Customer");
+            });
+
+            modelBuilder.Entity<OrderDetail>(entity =>
+            {
+                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
                 entity.Property(e => e.Deliveryperson).HasMaxLength(50);
 
                 entity.Property(e => e.LeaseDateEnd)
@@ -190,11 +212,9 @@ namespace Registration.Data
                     .HasColumnName("leaseDateStr")
                     .HasColumnType("date");
 
-                entity.Property(e => e.PurchaseDate).HasColumnType("date");
+                entity.Property(e => e.Remark).HasColumnType("text");
 
                 entity.Property(e => e.Revision).HasMaxLength(50);
-
-                entity.Property(e => e.Salesperson).HasMaxLength(50);
 
                 entity.Property(e => e.SerialNumber).HasMaxLength(50);
 
@@ -206,25 +226,27 @@ namespace Registration.Data
 
                 entity.Property(e => e.WarrantyPeriodStr).HasColumnType("date");
 
-                entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.Order)
-                    .HasForeignKey(d => d.CustomerId)
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.OrderDetail)
+                    .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Order_Customer");
+                    .HasConstraintName("FK_OrderDetail_Order");
             });
 
             modelBuilder.Entity<ProductKey>(entity =>
             {
-                entity.Property(e => e.Key)
+                entity.Property(e => e.Date).HasColumnType("datetime");
+
+                entity.Property(e => e.LicenceKey)
                     .IsRequired()
-                    .HasColumnName("ProductKey")
+                    .HasColumnName("LicenceKey")
                     .HasMaxLength(50);
 
-                entity.HasOne(d => d.Order)
+                entity.HasOne(d => d.OrderDetail)
                     .WithMany(p => p.ProductKey)
-                    .HasForeignKey(d => d.OrderId)
+                    .HasForeignKey(d => d.OrderDetailId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProductKey_Order");
+                    .HasConstraintName("FK_ProductKey_OrderDetail");
             });
         }
     }

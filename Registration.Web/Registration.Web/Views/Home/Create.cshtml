@@ -1,4 +1,4 @@
-﻿@model Registration.Service.Models.CustomerOrderViewModel
+﻿@model Registration.Service.Models.CustomerCreateViewModel
 
 
 <style>
@@ -8,7 +8,7 @@
 </style>
 
 <div class="body-title">
-    客戶資料與訂單資料
+    新增客戶資料與訂單資料
 </div>
 
 <div class="body-content">
@@ -28,96 +28,96 @@
             <div style="padding-left:100px;">
                 <div class="form-group row">
                     <div class="col-md-1 text-right">
-                        <label asp-for="Customer.Industry" class="col-form-label">行業別</label>
+                        <label asp-for="CustomerNew.Industry" class="col-form-label">行業別</label>
                     </div>
                     <div class="col-md-3">
-                        <select asp-for="Customer.Industry" class="form-control mb-2 mr-sm-2 mb-sm-2">
+                        <select asp-for="CustomerNew.Industry" class="form-control mb-2 mr-sm-2 mb-sm-2">
                             <option value="1">餐飲業</option>
                             <option value="2">資訊業</option>
                             <option value="3">營造業</option>
                         </select>
-                        <span asp-validation-for="Customer.Industry" class="text-danger"></span>
+                        <span asp-validation-for="CustomerNew.Industry" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-1 text-right">
-                        <label asp-for="Customer.Area" class="col-form-label">區域</label>
+                        <label asp-for="CustomerNew.Area" class="col-form-label">區域</label>
                     </div>
                     <div class="col-md-3">
-                        <select asp-for="Customer.Area" class="form-control mb-2 mr-sm-2 mb-sm-2">
+                        <select asp-for="CustomerNew.Area" class="form-control mb-2 mr-sm-2 mb-sm-2">
                             <option value="1">北區</option>
                             <option value="2">中區</option>
                             <option value="3">南區</option>
                         </select>
-                        <span asp-validation-for="Customer.Area" class="text-danger"></span>
+                        <span asp-validation-for="CustomerNew.Area" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-1 text-right">
-                        <label asp-for="Customer.Contact" class="col-form-label">聯絡人</label>
+                        <label asp-for="CustomerNew.Contact" class="col-form-label">聯絡人</label>
                     </div>
                     <div class="col-md-3">
-                        <input asp-for="Customer.Contact" class="form-control" />
-                        <span asp-validation-for="Customer.Contact" class="text-danger"></span>
+                        <input asp-for="CustomerNew.Contact" class="form-control" />
+                        <span asp-validation-for="CustomerNew.Contact" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-md-1 text-right">
-                        <label asp-for="Customer.Attribute" class="col-form-label">客戶屬性</label>
+                        <label asp-for="CustomerNew.Attribute" class="col-form-label">客戶屬性</label>
                     </div>
                     <div class="col-md-3">
-                        <select asp-for="Customer.Attribute" class="form-control mb-2 mr-sm-2 mb-sm-2">
+                        <select asp-for="CustomerNew.Attribute" class="form-control mb-2 mr-sm-2 mb-sm-2">
                             <option value="1">一般</option>
                             <option value="2">倒閉客</option>
                             <option value="3">test</option>
                         </select>
-                        <span asp-validation-for="Customer.Attribute" class="text-danger"></span>
+                        <span asp-validation-for="CustomerNew.Attribute" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-1 text-right">
-                        <label asp-for="Customer.Number" class="col-form-label">客戶編號</label>
+                        <label asp-for="CustomerNew.Number" class="col-form-label">客戶編號</label>
                     </div>
                     <div class="col-md-3">
-                        <input asp-for="Customer.Number" class="form-control" />
-                        <span asp-validation-for="Customer.Number" class="text-danger"></span>
+                        <input asp-for="CustomerNew.Number" class="form-control" />
+                        <span asp-validation-for="CustomerNew.Number" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-1 text-right">
-                        <label asp-for="Customer.Name" class="col-form-label">客戶名稱</label>
+                        <label asp-for="CustomerNew.Name" class="col-form-label">客戶名稱</label>
                     </div>
                     <div class="col-md-3">
-                        <input asp-for="Customer.Name" class="form-control" />
-                        <span asp-validation-for="Customer.Name" class="text-danger"></span>
+                        <input asp-for="CustomerNew.Name" class="form-control" />
+                        <span asp-validation-for="CustomerNew.Name" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-md-1 text-right">
-                        <label asp-for="Customer.Phone" class="col-form-label">電話</label>
+                        <label asp-for="CustomerNew.Phone" class="col-form-label">電話</label>
                     </div>
                     <div class="col-md-3">
-                        <input asp-for="Customer.Phone" class="form-control" />
-                        <span asp-validation-for="Customer.Phone" class="text-danger"></span>
+                        <input asp-for="CustomerNew.Phone" class="form-control" />
+                        <span asp-validation-for="CustomerNew.Phone" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-1 text-right">
-                        <label asp-for="Customer.Address" class="col-form-label">地址</label>
+                        <label asp-for="CustomerNew.Address" class="col-form-label">地址</label>
                     </div>
                     <div class="col-md-7">
 
                         <div class="row">
                             <div class="col-3">
-                                <select id="City" class="form-control" asp-for="Customer.CityId" asp-items="Model.City">
+                                <select id="City" class="form-control" asp-for="CustomerNew.CityId" asp-items="Model.City">
                                     <option>= 縣市 =</option>
                                 </select>
                             </div>
                             <div class="col-3">
-                                <select id="CityArea" class="form-control" asp-for="Customer.CityAreaId" asp-items="Model.CityArea">
+                                <select id="CityArea" class="form-control" asp-for="CustomerNew.CityAreaId" asp-items="Model.CityArea">
                                     <option>= 地區 =</option>
                                 </select>
                             </div>
                             <div class="col-6">
-                                <input asp-for="Customer.Address" class="form-control" maxlength="30" />
-                                <span asp-validation-for="Customer.Address" class="text-danger"></span>
+                                <input asp-for="CustomerNew.Address" class="form-control" maxlength="30" />
+                                <span asp-validation-for="CustomerNew.Address" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -125,21 +125,75 @@
             </div>
         </div>
         <hr />
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            @foreach (var item in Model.Order)
-            {
-                <li class="nav-item">
-                    <a class="nav-link active" id="detail[@item.Id]" data-toggle="tab" href="#detail[@item.Id]" role="tab" aria-controls="home" aria-expanded="true">@item.PurchaseDate.Value.ToString("yyyy-MM-dd")</a>
-                </li>
-            }
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            @foreach (var item in Model.Order)
-            {
-            <div class="tab-pane fade show active" id="detail[@item.Id]" role="tabpanel" aria-labelledby="home-tab">
+        <div>
+            <div class="row">
+                <div class="col-1 text-primary">
+                    <h5>訂單資料</h5>
+                </div>
+                <div class="col-11">
+                    
+                </div>
+            </div>
+        </div>
+        <div style="padding-left:100px;">
+            <div class="form-group row">
+                <div class="col-md-1 text-right">
+                    <label asp-for="OrderDto.PurchaseDate" class="col-form-label">購買日期</label>
+                </div>
+                <div class="col-md-3">
+                    <input asp-for="OrderDto.PurchaseDate" class="form-control" type="date" />
+                    <span asp-validation-for="OrderDto.PurchaseDate" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-1 text-right">
+                    <label asp-for="OrderDto.Salesperson" class="col-form-label">業務人員</label>
+                </div>
+                <div class="col-md-3">
+                    <table>
+                        <tr>
+                            <td>
+                                <input asp-for="OrderDto.Salesperson" class="form-control" readonly />
+                            </td>
+                            <td>
+                                <a class="AllUser" href="#" data-toggle="modal" data-target="#UserModal" data-id="1">
+                                    <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                    <span asp-validation-for="OrderDto.Salesperson" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-1 text-right">
+                    <label asp-for="OrderDto.IsReceipt" class="col-form-label">是否已收款</label>
+                </div>
+                <div class="col-md-3" style="padding-top:7px;">
+                    <label class="custom-control custom-checkbox">
+                        <input asp-for="OrderDto.IsReceipt" type="checkbox" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description"></span>
+                    </label>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <div class="row">
+                <div class="col-1 text-primary">
+                    <h5>訂單明細</h5>
+                </div>
+                <div class="col-11">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group" style="overflow-y:auto; height:500px;display:block;">
                 <table class="table table-striped table-hover">
                     <thead class="thead-inverse table-bordered">
                         <tr>
+                            <th>功能</th>
+                            <th width="7%">數量</th>
                             <th width="10%">授權種類</th>
                             <th>主版本</th>
                             <th width="8%">版次</th>
@@ -148,61 +202,16 @@
                             <th width="8%">租用期數</th>
                             <th>租用期限</th>
                             <th>自動更新</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody class="table-bordered">
-                        @foreach (var detail in item.OrderDetail)
-                        {
-                            <tr>
-                                <td class="text-center">
-                                    @{var authorize = (AuthorizeTypeEnum)detail.AuthorizeType;
-
-                                        @authorize.Description()
-                                    }
-                                </td>
-                                <td class="text-center">
-                                    @detail.Version
-                                </td>
-                                <td class="text-center">
-                                    @detail.Revision
-                                </td>
-                                <td class="text-center">
-                                    @detail.Warranty
-                                </td>
-                                <td class="text-center">
-                                    @detail.WarrantyPeriodStr.Value.ToString("yyyy-MM-dd")
-                                    ~
-                                    @detail.WarrantyPeriodEnd.Value.ToString("yyyy-MM-dd")
-                                </td>
-                                <td class="text-center">
-                                    @detail.Lease
-                                </td>
-                                <td class="text-center">
-                                    @detail.LeaseDateStr.Value.ToString("yyyy-MM-dd")
-                                    ~
-                                    @detail.LeaseDateEnd.Value.ToString("yyyy-MM-dd")
-                                </td>
-                                <td class="text-center">
-                                    @{
-                                        if (detail.IsAutoUpdate)
-                                        {
-                                            <span style="color:#00AA00">✓</span>
-                                        }
-                                    }
-                                </td>
-                                <td class="text-center">
-                                    <a asp-action="DetailDisplay" asp-route-id="@detail.Id" class="btn btn-primary btn-sm" data-toggle="tooltip" title="明細"><i class="fa fa-list-ul" aria-hidden="true"></i></a>
-                                </td>
-                            </tr>
+                        @{
+                            Html.RenderPartial("_OrderDetail", Model.OrderDetailDto);
                         }
                     </tbody>
                 </table>
             </div>
-            }
         </div>
-        
-        
 
         <div class="row justify-content-center">
             <div class="col-4 text-center">

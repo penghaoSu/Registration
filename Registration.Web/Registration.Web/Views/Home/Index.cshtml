@@ -1,4 +1,4 @@
-﻿@model Registration.Service.Models.CustomerViewModel
+﻿@model Registration.Service.Models.OrderViewModel
 
 <div class="body-title">
     客戶資料
@@ -11,29 +11,51 @@
                 if (authority == "系統管理員")
                 {
                     <form class="form-inline">
-                        <a asp-action="Create" asp-controller="Customer" class="mb-2 mr-sm-2 mb-sm-2 btn btn-primary">新客戶 <i class="fa fa-plus"></i></a>
+                        <a asp-action="Create" asp-controller="Home" class="mb-2 mr-sm-2 mb-sm-2 btn btn-primary">新客戶 <i class="fa fa-plus"></i></a>
                     </form>
                 };
             }
         </div>
         <div class="col-md-7">
             <form asp-action="Index" method="get" class="form-inline float-right">
-                <select asp-for="SearchParams.Name" class="form-control mb-2 mr-sm-2 mb-sm-2">
-                    <option value="1">客戶編號</option>
-                    <option value="2">客戶名稱</option>
-                    <option value="3">區域</option>
+                <select asp-for="SearchParams.Selector" class="form-control mb-2 mr-sm-2 mb-sm-2">
+                    <option value="1">軟體序號</option>
+                    <option value="2">業務人員</option>
+                    <option value="3">交機人員</option>
+                    <option value="4">購買日</option>
+                    <option value="5">保固日</option>
                 </select>
-                <input type="text" asp-for="SearchParams.Keyword" class="form-control mb-2 mr-sm-2 mb-sm-2" placeholder="搜尋內容" />
+                <div id="Keyword">
+                    <input type="text" asp-for="SearchParams.Keyword" class="form-control mb-2 mr-sm-2 mb-sm-2" placeholder="搜尋內容" />
+                </div>
+                <div id="date">
+                    @*<input id="StartDate" class="form-control mb-2 mr-sm-2 mb-sm-2" type="date" asp-for="SearchParams.StartDate" value="@DateTime.Today.ToString("yyyy-MM-dd")">
+                        <label class="mb-2 mr-sm-2 mb-sm-2">~</label>
+                        <input id="EndDate" class="form-control mb-2 mr-sm-2 mb-sm-2" type="date" asp-for="SearchParams.EndDate" value="@DateTime.Today.ToString("yyyy-MM-dd")">*@
+
+                    <div class="float-left">
+                        <input id="StartDate" class="form-control mb-2 mr-sm-2 mb-sm-2" type="date" asp-for="SearchParams.StartDate" value="@DateTime.Today.ToString("yyyy-MM-dd")">
+                    </div>
+                    <div class="float-left">
+                        <label class="mb-2 mr-sm-2 mb-sm-2">~</label>
+                    </div>
+
+                    <div class="float-left">
+
+                        <input id="EndDate" class="form-control mb-2 mr-sm-2 mb-sm-2" type="date" asp-for="SearchParams.EndDate" value="@DateTime.Today.ToString("yyyy-MM-dd")">
+                    </div>
+
+                </div>
                 <button type="submit" class="btn btn-primary mb-2 mr-sm-2 mb-sm-2">查詢 <i class="fa fa-search"></i></button>
-                <a asp-action="Export" asp-controller="Excel" class="btn btn-primary">匯出</a>
+                <a asp-action="Export" asp-controller="Excel" class="btn btn-primary mb-2 mr-sm-2 mb-sm-2">匯出</a>
             </form>
-            
+
         </div>
     </div>
 
     @* 內容 *@
     <div id="PagedList">
-        @await Html.PartialAsync("_PagedPartial", Model.Customer)
+        @await Html.PartialAsync("_PagedPartial", Model.Order)
     </div>
 
 </div>
@@ -47,10 +69,44 @@
                 var clickedButtonId = button.data('id');
                 $("#hiddenInp").val(clickedButtonId);
             });
+
+            var xx = '@TempData["keyword"]';
+            if ('@TempData["keyword"]')
+            {
+                $("#date").hide();
+                $("#Keyword").show();
+            }
+            else
+            {
+                $("#date").show();
+                $("#Keyword").hide();
+            }
+
+
+
+
+
+        });
+
+        $("#SearchParams_Selector").change(function () {
+
+            var sel = $("#SearchParams_Selector").val();
+            if (sel > 3) {
+                $("#Keyword").hide();
+                $("#date").show();
+                $('#SearchParams_Keyword').val("");
+            }
+            else {
+                $("#Keyword").show();
+                $("#date").hide();
+                $('#StartDate').val("");
+                $('#EndDate').val("");
+            }
+
         });
     </script>
     <script>
-        var TeamDetailPostBackURL = '@Url.Action("AllOrder", "Customer")';
+        var TeamDetailPostBackURL = '@Url.Action("AllOrder", "Home")';
         $(function () {
             $(".AllInfo").click(function () {
                 var $buttonClicked = $(this);
@@ -81,8 +137,5 @@
                 $("#myTaste").empty();
             });
         });
-
-
-
     </script>
 }

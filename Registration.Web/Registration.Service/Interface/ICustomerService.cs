@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Registration.Data;
 using Registration.Service.Models;
-using Registration.Service.Models.ViewModels;
 using Sakura.AspNetCore;
 using System;
 using System.Collections.Generic;
@@ -20,12 +19,12 @@ namespace Registration.Service.Interface
         Task<Customer> GetByIdAsync(int? id);
 
         /// <summary>
-        /// 取得客戶資料列表
+        /// 取得所有客戶(包括訂單)列表
         /// </summary>
         /// <param name="param"></param>
         /// <param name="page"></param>
         /// <returns></returns>
-        Task<IEnumerable<CustomerModel>> GetAllAsync(CustomerSearch param, int page);
+        Task<IEnumerable<OrderDto>> GetAllCustomerAsync(CustomerSearch param, int page);
 
         /// <summary>
         /// 取得使用者列表
@@ -38,7 +37,7 @@ namespace Registration.Service.Interface
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task CreateAsync(CustomerCreateViewModel model);
+        Task CreateOrderAsync(CustomerCreateViewModel model);
 
         /// <summary>
         /// 新增擴充模組
@@ -54,7 +53,7 @@ namespace Registration.Service.Interface
         /// <param name="id"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task EditAsync(int id, CustomerDto model);
+        Task EditAsync(int id, Order model);
 
         /// <summary>
         /// 刪除
@@ -75,20 +74,35 @@ namespace Registration.Service.Interface
         /// </summary>
         /// <param name="cid"></param>
         /// <returns></returns>
-        Task<Customer> GetAllOrderAsync(int cid);
+        Task<Customer> GetAllOrderByAsync(int cid);
 
         /// <summary>
         /// 取得客戶單筆訂單資料
         /// </summary>
         /// <param name="cid"></param>
         /// <returns></returns>
-        Task<CustomerOrderViewModel> GetOrderByIdAsync(int cid);
+        Task<CustomerOrderViewModel> GetOrderByCustomerIdAsync(int cid);
 
         /// <summary>
         /// 取得所有訂單資料並作匯出
         /// </summary>
         /// <returns></returns>
         Task<IEnumerable<Customer>> GetOrderExcelAsync();
+
+        /// <summary>
+        /// 取得訂單的產品金鑰
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<IEnumerable<ProductKey>> GetProductKeyByOrderId(int id);
+
+
+        /// <summary>
+        /// 重製產品金鑰
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task ResetProductKey(int id);
 
         /// <summary>
         /// 取得縣市
@@ -115,6 +129,9 @@ namespace Registration.Service.Interface
         /// <param name="id"></param>
         /// <returns></returns>
         Task<string> GetCityAreaNameAsync(int id);
+
+
+
 
     }
 }

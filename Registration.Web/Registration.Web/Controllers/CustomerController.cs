@@ -28,19 +28,19 @@ namespace Registration.Web.Controllers
         }
 
         #region Index
-        public async Task<IActionResult> Index(CustomerViewModel viewModel, int page = 1)
+        public async Task<IActionResult> Index(OrderViewModel viewModel, int page = 1)
         {
             var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
 
-            var model = new CustomerViewModel
+            var model = new OrderViewModel
             {
-                Customer = await _customerService.GetAllAsync(viewModel.SearchParams, page),
+                Order = await _customerService.GetAllCustomerAsync(viewModel.SearchParams, page),
                 SearchParams = viewModel.SearchParams
             };
 
             if (isAjax)
             {
-                return PartialView("_PagedPartial", model.Customer);
+                return PartialView("_PagedPartial", model.Order);
             }
 
             var userRoleId = ViewBag.Authority = _userTokenService.GetCurrentUserRoleId().Result;
@@ -67,9 +67,9 @@ namespace Registration.Web.Controllers
         {
             try
             {
-                model.SerialNumber = sn.Values;
+                //model.SerialNumber = sn.Values;
 
-                await _customerService.CreateAsync(model);
+                await _customerService.CreateOrderAsync(model);
 
                 await _logFileService.LogInformation("新增客戶", await _userTokenService.GetCurrentUserId());
 
@@ -114,7 +114,7 @@ namespace Registration.Web.Controllers
         {
             try
             {
-                model.SerialNumber = sn.Values;
+                //model.SerialNumber = sn.Values;
 
                 await _customerService.CreateModuleAsync(model);
 
@@ -146,7 +146,7 @@ namespace Registration.Web.Controllers
         {
             try
             {
-                var model = await _customerService.GetAllOrderAsync(Id);
+                var model = await _customerService.GetAllOrderByAsync(Id);
 
                 return PartialView("_AllOrder", model);
             }

@@ -10,6 +10,8 @@ namespace Registration.Service.Models
 
         public string Item { get; set; }
 
+        public string UserName { get; set; }
+
         public string UserId { get; set; }
     }
 }

@@ -10,6 +10,7 @@ namespace Registration.Data
             AspNetUserClaims = new HashSet<AspNetUserClaims>();
             AspNetUserLogins = new HashSet<AspNetUserLogins>();
             AspNetUserRoles = new HashSet<AspNetUserRoles>();
+            LogFile = new HashSet<LogFile>();
         }
 
         public string Id { get; set; }
@@ -34,5 +35,6 @@ namespace Registration.Data
         public ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
         public ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
+        public ICollection<LogFile> LogFile { get; set; }
     }
 }

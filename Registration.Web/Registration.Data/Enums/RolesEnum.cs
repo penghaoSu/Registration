@@ -10,8 +10,11 @@ namespace Registration.Data.Enums
         [Description("系統管理員")]
         Administrator = 1,
 
-        [Description("一般人員")]
-        GeneralStaff = 2,
+        [Description("業務人員")]
+        Salesperson = 2,
+
+        [Description("交機人員")]
+        Deliveryperson = 3,
 
     }
 }

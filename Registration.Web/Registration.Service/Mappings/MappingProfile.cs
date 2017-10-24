@@ -17,6 +17,8 @@ namespace Registration.Service.Mappings
 
             CreateMap<OrderDto, Order>();
 
+            CreateMap<OrderDetailDto, OrderDetail>();
+
             CreateMap<ModuleDto, Order>();
 
             CreateMap<CustomerCreateDto, Customer>();

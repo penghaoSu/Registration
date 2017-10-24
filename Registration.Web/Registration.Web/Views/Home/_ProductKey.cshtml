@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Registration.Data.ProductKey>
+
+<div>
+    <table class="table table-striped table-hover table-bordered">
+        <thead class="thead-inverse">
+            <tr>
+                <th width="8%">
+                    產品金鑰
+                </th>
+                <th width="8%">
+                    取得日期
+                </th>
+                <th width="8%">
+                    狀態
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center">
+                        @item.Key
+                    </td>
+                    <td class="text-center">
+                        @item.Date.ToString("yyyy-MM-dd HH:mm")
+                    </td>
+                    <td class="text-center">
+                        @{
+                            if (item.Status == 1)
+                            {
+                                <span class="text-primary">生效</span>
+                            }
+                            else
+                            {
+                                <span class="text-danger">失效</span>
+                            }
+
+                        }
+                    </td>
+                </tr>
+                            }
+        </tbody>
+    </table>
+</div>
+

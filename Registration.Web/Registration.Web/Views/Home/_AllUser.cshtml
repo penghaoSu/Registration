@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Registration.Service.Models.UserModel>
+
+@{
+    Layout = null;
+}
+
+<style>
+    table {
+    }
+</style>
+
+<div style="padding:15px 15px 15px 15px">
+    <div class="modal-header">
+        <h4 class="modal-title"></h4>
+        <input type="hidden" id="hiddenInp" name="id">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @* content *@
+    <div class="modal-body">
+        <div id="checkboxGroup" class="custom-controls-stacked">
+            @foreach (var item in Model)
+            {
+                <label class="custom-control custom-checkbox">
+                    <input name="checkBoxUsers" type="checkbox" class="custom-control-input" value="@item.Name">
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">@item.Name</span>
+                </label>
+            }
+        </div>
+    </div>
+    @* footer *@
+    <div class="modal-footer text-center">
+        <button id="checkuser" type="button" class="btn btn-primary" data-dismiss="modal">確認</button>
+    </div>
+
+</div>
+
+<script>
+    $('#checkboxGroup input').click(function () {
+        if ($(this).prop('checked')) {
+            $('#checkboxGroup input:checkbox').prop('checked', false);
+            $(this).prop('checked', true);
+        }
+    });
+    $('#checkuser').click(function () {
+
+        var cbxVehicle = new Array();
+        $('input:checkbox:checked[name="checkBoxUsers"]').each(function (i) { cbxVehicle[i] = this.value; });
+        var id = $("#hiddenInp").val();
+        if (id == 1)
+            $('#OrderDto_Salesperson').val(cbxVehicle);
+        else
+            $('#OrderDto_Deliveryperson').val(cbxVehicle);
+    });
+</script>

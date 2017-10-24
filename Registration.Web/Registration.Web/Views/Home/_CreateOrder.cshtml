@@ -1,0 +1,235 @@
+﻿@model Registration.Service.Models.OrderCreateViewModel
+
+@{
+    Layout = null;
+}
+
+<style>
+    table {
+    }
+</style>
+
+<div style="padding:15px 15px 15px 15px">
+    <div class="modal-header">
+        <h4 class="modal-title"></h4>
+        <input type="hidden" id="hiddenInp" name="id">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @* content *@
+    <div class="modal-body">
+        <form asp-action="Create">
+            <div class="form-horizontal">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div>
+                    <div class="row">
+                        <div class="col-1 text-primary">
+                            <h5>訂單資料</h5>
+                        </div>
+                        <div class="col-11">
+                            <hr />
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-left:100px;">
+                    <div class="form-group row">
+                        <div class="col-md-1 text-right">
+                            <label asp-for="OrderDto.PurchaseDate" class="col-form-label">購買日期</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input asp-for="OrderDto.PurchaseDate" class="form-control" type="date" />
+                            <span asp-validation-for="OrderDto.PurchaseDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-1 text-right">
+                            <label asp-for="OrderDto.Salesperson" class="col-form-label">業務人員</label>
+                        </div>
+                        <div class="col-md-3">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input asp-for="OrderDto.Salesperson" class="form-control" readonly />
+                                    </td>
+                                    <td>
+                                        <a class="AllUser" href="#" data-toggle="modal" data-target="#UserModal" data-id="1">
+                                            <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <span asp-validation-for="OrderDto.Salesperson" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-1 text-right">
+                            <label asp-for="OrderDto.IsReceipt" class="col-form-label">是否已收款</label>
+                        </div>
+                        <div class="col-md-3" style="padding-top:7px;">
+                            <label class="custom-control custom-checkbox">
+                                <input asp-for="OrderDto.IsReceipt" type="checkbox" class="custom-control-input">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="row">
+                        <div class="col-1 text-primary">
+                            <h5>授權資料</h5>
+                        </div>
+                        <div class="col-11">
+                            <hr />
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-left:100px;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    @*<div class="form-group row">
+                        <div class="col-md-1 text-right">
+                            <label asp-for="OrderDto.Number" class="col-form-label">數量</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input asp-for="OrderDto.Number" class="form-control" min="0" value="0" />
+                            <span asp-validation-for="OrderDto.Number" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-1 text-right">
+                            <label asp-for="OrderDto.Version" class="col-form-label">主版本</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input asp-for="OrderDto.Version" class="form-control" />
+                            <span asp-validation-for="OrderDto.Version" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-1 text-right">
+                            <label asp-for="OrderDto.Revision" class="col-form-label">版次</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input asp-for="OrderDto.Revision" class="form-control" />
+                            <span asp-validation-for="OrderDto.Revision" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-1 text-right">
+                            <label asp-for="OrderDto.Warranty" class="col-form-label">保固年份</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input asp-for="OrderDto.Warranty" class="form-control" type="number" min="0" value="0" />
+                            <span asp-validation-for="OrderDto.Warranty" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-1 text-right">
+                            <label asp-for="OrderDto.WarrantyPeriodStr" class="col-form-label">保固期限</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input asp-for="OrderDto.WarrantyPeriodStr" class="form-control" type="date" />
+                            <span asp-validation-for="OrderDto.WarrantyPeriodStr" class="text-danger"></span>
+                        </div>
+                        <div class="">~</div>
+                        <div class="col-md-2">
+                            <input asp-for="OrderDto.WarrantyPeriodEnd" class="form-control" type="date" />
+                            <span asp-validation-for="OrderDto.WarrantyPeriodEnd" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-1 text-right">
+                            <label asp-for="OrderDto.Lease" class="col-form-label">租用期數</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input asp-for="OrderDto.Lease" class="form-control" type="number" min="0" value="0" />
+                            <span asp-validation-for="OrderDto.Lease" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-1 text-right">
+                            <label asp-for="OrderDto.LeaseDateStr" class="col-form-label">租用期限</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input asp-for="OrderDto.LeaseDateStr" class="form-control" type="date" />
+                            <span asp-validation-for="OrderDto.LeaseDateStr" class="text-danger"></span>
+                        </div>
+                        <div class="">~</div>
+                        <div class="col-md-2">
+                            <input asp-for="OrderDto.LeaseDateEnd" class="form-control" type="date" />
+                            <span asp-validation-for="OrderDto.LeaseDateEnd" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-1 text-right">
+                            <label asp-for="OrderDto.SerialNumber" class="col-form-label">軟體序號</label>
+                        </div>
+                        <div class="col-md-3">
+                            @await Html.PartialAsync("_SerialNumber", new Registration.Service.Models.SerialNumber() { Flag = true })
+                            <div id="mySN">
+
+                            </div>
+                            <span asp-validation-for="OrderDto.SerialNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-1 text-right">
+                            <label asp-for="OrderDto.IsAutoUpdate" class="col-form-label">自動更版</label>
+                        </div>
+                        <div class="col-md-3" style="padding-top:7px;">
+                            <label class="custom-control custom-checkbox">
+                                <input asp-for="OrderDto.IsAutoUpdate" type="checkbox" class="custom-control-input">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description"></span>
+                            </label>
+                        </div>*@
+
+                    </div>
+                </div>
+            <br />
+
+            <div class="row justify-content-center">
+                <div class="col-4 text-center">
+                    <button type="submit" value="Create" class="btn btn-primary" id="Send">新增<i class="fa fa-check"></i></button>
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-success">返回列表 <i class="fa fa-reply"></i></a>
+                </div>
+            </div>
+        </form>
+    </div>
+    @* footer *@
+    <div class="modal-footer text-center">
+        <button id="checkuser" type="button" class="btn btn-primary" data-dismiss="modal">確認</button>
+    </div>
+
+</div>
+
+<script>
+    $('#checkboxGroup input').click(function () {
+        if ($(this).prop('checked')) {
+            $('#checkboxGroup input:checkbox').prop('checked', false);
+            $(this).prop('checked', true);
+        }
+    });
+    $('#checkuser').click(function () {
+
+        var cbxVehicle = new Array();
+        $('input:checkbox:checked[name="checkBoxUsers"]').each(function (i) { cbxVehicle[i] = this.value; });
+        var id = $("#hiddenInp").val();
+        if (id == 1)
+            $('#Order_Salesperson').val(cbxVehicle);
+        else
+            $('#Order_Deliveryperson').val(cbxVehicle);
+    });
+</script>

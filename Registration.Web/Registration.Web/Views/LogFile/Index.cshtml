@@ -1,0 +1,14 @@
+﻿@model IPagedList<Registration.Service.Models.LogModel>
+
+<div class="body-title">
+    紀錄資料
+</div>
+
+<div class="body-content">
+       
+
+    @* 內容 *@
+    <div id="PagedList">
+        @await Html.PartialAsync("_PagedPartial", Model)
+    </div>
+</div>

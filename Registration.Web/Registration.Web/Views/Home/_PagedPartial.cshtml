@@ -1,4 +1,4 @@
-﻿@model IPagedList<Registration.Service.Models.CustomerModel>
+﻿@model IPagedList<Registration.Service.Models.OrderDto>
 @using Registration.Data.Enums;
 @using Registration.Data.Enums.Extension;
 <div>
@@ -18,7 +18,7 @@
                 <th width="10%">
                     客戶編號
                 </th>
-                <th width="14%">
+                <th width="12%">
                     客戶名稱
                 </th>
                 <th width="9%">
@@ -30,12 +30,6 @@
                 <th width="">
                     收款
                 </th>
-                <th width="10%">
-                    主版本
-                </th>
-                <th>
-                    軟體狀態
-                </th>
                 <th>
 
                 </th>
@@ -44,81 +38,69 @@
         <tbody>
             @foreach (var item in Model)
             {
-                foreach (var order in item.Order)
-                {
-                    <tr>
-                        <td class="text-center">
-                            @{
-                                var industry = (IndustryEnum)Enum.Parse(typeof(IndustryEnum), item.Industry.ToString());
-                                <span>@industry.Description()</span>
-                            }
-                        </td>
-                        <td class="text-center">
-                            @{
-                                var area = (AreaEnum)Enum.Parse(typeof(AreaEnum), item.Area.ToString());
-                                <span>@area.Description()</span>
-                            }
-                        </td>
-                        <td class="text-center">
-                            @{
-                                var attribu = (AttributeEnum)Enum.Parse(typeof(AttributeEnum), item.Attribute.ToString());
-                                <span>@attribu.Description()</span>
-                            }
-                        </td>
-                        <td class="text-center">
-                            @item.Number
-                        </td>
-                        <td class="text-center">
-                            <a class="AllInfo" href="#" data-toggle="modal" data-target="#AllModal" data-id="@item.Id">
-                                @item.Name
-                            </a>
-                        </td>
-                        <td class="text-center">
-                            @if (order.PurchaseDate != null)
+                <tr>
+                    <td class="text-center">
+                        @{
+                            var industry = (IndustryEnum)Enum.Parse(typeof(IndustryEnum), item.Customer.Industry.ToString());
+                            <span>@industry.Description()</span>
+                        }
+                    </td>
+                    <td class="text-center">
+                        @{
+                            var area = (AreaEnum)Enum.Parse(typeof(AreaEnum), item.Customer.Area.ToString());
+                            <span>@area.Description()</span>
+                        }
+                    </td>
+                    <td class="text-center">
+                        @{
+                            var attribu = (AttributeEnum)Enum.Parse(typeof(AttributeEnum), item.Customer.Attribute.ToString());
+                            <span>@attribu.Description()</span>
+                        }
+                    </td>
+                    <td class="text-center">
+                        @item.Customer.Number
+                    </td>
+                    <td class="text-center">
+                        <a class="AllInfo" href="#" data-toggle="modal" data-target="#AllModal" data-id="@item.CustomerId">
+                            @item.Customer.Name
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        @if (item.PurchaseDate != null)
+                        {
+                            <span>
+                                @item.PurchaseDate.ToString("yyyy-MM-dd")
+                            </span>
+                        }
+                    </td>
+                    <td class="text-center">
+                        @item.Salesperson
+                    </td>
+                    <td class="text-center">
+                        @if (item.IsReceipt)
+                        {
+                            <span style="color:#00AA00">✓</span>
+                        }
+                    </td>
+                    <td align="center">
+                        <a asp-action="Display" asp-route-id="@item.CustomerId" class="btn btn-primary btn-sm" data-toggle="tooltip" title="明細"><i class="fa fa-list-ul" aria-hidden="true"></i></a>
+                        @{
+                            var authority = ViewBag.Authority;
+                            if (authority == "系統管理員")
                             {
-                                <span>
-                                    @order.PurchaseDate.Value.ToString("yyyy-MM-dd")
-                                </span>
-                            }
-                        </td>
-                        <td class="text-center">
-                            @order.Salesperson
-                        </td>
-                        <td class="text-center">
-                            @if (order.IsReceipt)
-                            {
-                                <span style="color:#00AA00">✓</span>
-                            }
-                        </td>
-                        <td class="text-center">
-                            @order.Version
-                        </td>
-                        <td class="text-center">
-                            @{
-                                var status = (StatusEnum)Enum.Parse(typeof(StatusEnum), order.Status.ToString());
-                                <span>@status.Description()</span>
-                            }
-                        </td>
-                        <td align="center">
-                            <a asp-action="Display" asp-route-id="@order.Id" class="btn btn-primary btn-sm" data-toggle="tooltip" title="明細"><i class="fa fa-list-ul" aria-hidden="true"></i></a>
-                            @{
-                                var authority = ViewBag.Authority;
-                                if (authority == "系統管理員")
-                                {
-                                    <a asp-action="CreateModule" asp-controller="Customer" asp-route-id="@item.Id" class="btn btn-dark btn-sm" data-toggle="tooltip" title="新增模組"><i class="fa fa-cube" aria-hidden="true"></i></a>
-                                    @*<a asp-action="Edit" asp-route-id="@order.Id" class="btn btn-success btn-sm" data-toggle="tooltip" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></a>*@
+                                <a asp-action="CreateModule" asp-controller="Customer" asp-route-id="@item.CustomerId" class="btn btn-dark btn-sm" data-toggle="tooltip" title="新增模組"><i class="fa fa-cube" aria-hidden="true"></i></a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm" data-toggle="tooltip" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                     @*<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" data-toggle="tooltip" title="刪除" onclick="return confirm('確定刪除此筆資料？');"><i class="fa fa-times" aria-hidden="true"></i></a>*@
                                     <span data-toggle="tooltip" title="刪除">
                                         <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal" data-id=@item.Id>
                                             <i class="fa fa-remove" aria-hidden="true"></i>
                                         </button>
                                     </span>
-                                }
                             }
-                        </td>
-                    </tr>
-                                    }
-                                }
+                        }
+                    </td>
+                </tr>
+                            }
         </tbody>
     </table>
 </div>
